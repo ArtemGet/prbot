@@ -24,6 +24,8 @@
 
 package io.github.artemget.prbot;
 
+import io.github.artemget.prbot.bot.BotPr;
+
 /**
  * Entrypoint. Application starts here.
  *
@@ -40,6 +42,6 @@ package io.github.artemget.prbot;
 )
 public final class Entrypoint {
     public static void main(final String[] args) {
-        throw new UnsupportedOperationException("Unimplemented");
+        new BotPr("your_token");
     }
 }
