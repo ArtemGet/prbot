@@ -22,24 +22,32 @@
  * SOFTWARE.
  */
 
-package io.github.artemget.prbot;
+package io.github.artemget.prbot.bot;
+
+import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.api.objects.Update;
 
 /**
- * Entrypoint. Application starts here.
+ * Main bot class.
  *
- * @since 0.0.1
- * @checkstyle HideUtilityClassConstructorCheck (2 lines)
+ * @since 0.1.0
  */
-@SuppressWarnings(
-    {
-        "AnnotationUseStyleCheck",
-        "PMD.HideUtilityClassConstructorCheck",
-        "PMD.ProhibitPublicStaticMethods",
-        "PMD.UseUtilityClass"
+public final class BotPr extends TelegramLongPollingBot {
+    /**
+     * Main ctor.
+     * @param token Telegram bot token
+     */
+    public BotPr(final String token) {
+        super(token);
     }
-)
-public final class Entrypoint {
-    public static void main(final String[] args) {
+
+    @Override
+    public void onUpdateReceived(final Update update) {
+        throw new UnsupportedOperationException("Unimplemented");
+    }
+
+    @Override
+    public String getBotUsername() {
         throw new UnsupportedOperationException("Unimplemented");
     }
 }

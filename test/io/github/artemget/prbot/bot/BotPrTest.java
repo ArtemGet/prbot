@@ -22,24 +22,34 @@
  * SOFTWARE.
  */
 
-package io.github.artemget.prbot;
+package io.github.artemget.prbot.bot;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.telegram.telegrambots.meta.api.objects.Update;
 
 /**
- * Entrypoint. Application starts here.
+ * Test case {@link BotPr}.
  *
  * @since 0.0.1
- * @checkstyle HideUtilityClassConstructorCheck (2 lines)
  */
-@SuppressWarnings(
-    {
-        "AnnotationUseStyleCheck",
-        "PMD.HideUtilityClassConstructorCheck",
-        "PMD.ProhibitPublicStaticMethods",
-        "PMD.UseUtilityClass"
+class BotPrTest {
+
+    @Test
+    void throwsAtUnimplementedUpdate() {
+        Assertions.assertThrows(
+            UnsupportedOperationException.class,
+            () -> new BotPr("token").onUpdateReceived(new Update()),
+            "Not throws at unimplemented onUpdateReceived()"
+        );
     }
-)
-public final class Entrypoint {
-    public static void main(final String[] args) {
-        throw new UnsupportedOperationException("Unimplemented");
+
+    @Test
+    void throwsAtUnimplementedUsername() {
+        Assertions.assertThrows(
+            UnsupportedOperationException.class,
+            () -> new BotPr("token").getBotUsername(),
+            "Not throws at unimplemented getBotUsername()"
+        );
     }
 }

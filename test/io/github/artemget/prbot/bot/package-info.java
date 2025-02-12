@@ -22,24 +22,7 @@
  * SOFTWARE.
  */
 
-package io.github.artemget.prbot;
-
 /**
- * Entrypoint. Application starts here.
- *
- * @since 0.0.1
- * @checkstyle HideUtilityClassConstructorCheck (2 lines)
+ * Testcases for prbot.
  */
-@SuppressWarnings(
-    {
-        "AnnotationUseStyleCheck",
-        "PMD.HideUtilityClassConstructorCheck",
-        "PMD.ProhibitPublicStaticMethods",
-        "PMD.UseUtilityClass"
-    }
-)
-public final class Entrypoint {
-    public static void main(final String[] args) {
-        throw new UnsupportedOperationException("Unimplemented");
-    }
-}
+package io.github.artemget.prbot.bot;
