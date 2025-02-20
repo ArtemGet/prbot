@@ -24,6 +24,17 @@
   </properties>
   <dependencies>
     <dependency>
+      <groupId>org.jdbi</groupId>
+      <artifactId>jdbi3-core</artifactId>
+      <version>3.43.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>1.7.36</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
       <version>5.10.2</version>
@@ -36,9 +47,9 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>io.github.ArtemGet</groupId>
+      <groupId>com.github.ArtemGet</groupId>
       <artifactId>teleroute.telegrambots</artifactId>
-      <version>1.0.0</version>
+      <version>1.0.1</version>
     </dependency>
   </dependencies>
   <build>
@@ -115,6 +126,41 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>3.7.1</version>
+        <configuration>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+          <finalName>app</finalName>
+          <appendAssemblyId>false</appendAssemblyId>
+          <archive>
+            <manifest>
+              <mainClass>io.github.artemget.prbot.Entrypoint</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>single</goal>
+            </goals>
+            <phase>package</phase>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.4.2</version>
+        <executions>
+          <execution>
+            <id>default-jar</id>
+            <phase>none</phase>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
   <profiles>
@@ -133,10 +179,22 @@
                   dependencies:io.github.ArtemGet:teleroute.telegrambots:jar:1.0.0:compile
                 </exclude>
                 <exclude>
+                  dependencies:com.github.ArtemGet:teleroute:jar:1.0.0:compile
+                </exclude>
+                <exclude>
                   dependencies:org.telegram:telegrambots:jar:6.9.7.1
                 </exclude>
                 <exclude>
                   dependencies:org.telegram:telegrambots-meta:jar:6.9.7.1
+                </exclude>
+                <exclude>
+                  dependencies:com.github.ArtemGet:teleroute.telegrambots:jar:1.0.1:compile
+                </exclude>
+                <exclude>
+                  dependencies:org.jdbi:jdbi3-core:jar:3.43.0:compile
+                </exclude>
+                <exclude>
+                  dependencies:org.slf4j:slf4j-api:jar:1.7.36:compile
                 </exclude>
               </excludes>
             </configuration>
