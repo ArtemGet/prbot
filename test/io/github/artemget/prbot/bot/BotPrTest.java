@@ -24,6 +24,8 @@
 
 package io.github.artemget.prbot.bot;
 
+import io.github.artemget.prbot.config.FkEntry;
+import io.github.artemget.teleroute.route.RouteEnd;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -37,19 +39,13 @@ class BotPrTest {
 
     @Test
     void throwsAtUnimplementedUpdate() {
-        Assertions.assertThrows(
-            UnsupportedOperationException.class,
-            () -> new BotPr("token").onUpdateReceived(new Update()),
-            "Not throws at unimplemented onUpdateReceived()"
-        );
-    }
-
-    @Test
-    void throwsAtUnimplementedUsername() {
-        Assertions.assertThrows(
-            UnsupportedOperationException.class,
-            () -> new BotPr("token").getBotUsername(),
-            "Not throws at unimplemented getBotUsername()"
+        Assertions.assertDoesNotThrow(
+            () -> new BotPr(
+                new FkEntry<>("prbot"),
+                new FkEntry<>("123"),
+                new RouteEnd<>()
+            ).onUpdateReceived(new Update()),
+            "Throws"
         );
     }
 }
