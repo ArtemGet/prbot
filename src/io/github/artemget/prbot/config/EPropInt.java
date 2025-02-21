@@ -25,28 +25,40 @@
 package io.github.artemget.prbot.config;
 
 /**
- * Property entry.
+ * Integer property entry.
  *
  * @since 0.0.1
  */
-public final class EProp implements Entry<String> {
+public class EPropInt implements Entry<Integer> {
     /**
-     * Name of property.
+     * Origin entry.
      */
-    private final String name;
+    private final Entry<String> origin;
 
-    public EProp(final String name) {
-        this.name = name;
+    /**
+     * Ctor.
+     *
+     * @param name Property
+     */
+    public EPropInt(final String name) {
+        this(new EProp(name));
+    }
+
+    /**
+     * Main Ctor.
+     *
+     * @param origin Property
+     */
+    public EPropInt(final Entry<String> origin) {
+        this.origin = origin;
     }
 
     @Override
-    public String value() throws EntryException {
-        final String value = System.getProperty(this.name);
-        if (value == null) {
-            throw new EntryException(
-                String.format("Empty entry for name %s", this.name)
-            );
+    public Integer value() throws EntryException {
+        try {
+            return Integer.valueOf(this.origin.value());
+        } catch (NumberFormatException exception) {
+            throw new EntryException("Wrong entry type for int entry", exception);
         }
-        return value;
     }
 }
