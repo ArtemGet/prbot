@@ -201,6 +201,9 @@
                 <exclude>
                   dependencies:org.slf4j:slf4j-api:jar:1.7.36:compile
                 </exclude>
+                <exclude>
+                  dependencies:org.takes:takes:jar:1.24.6:compile
+                </exclude>
               </excludes>
             </configuration>
             <executions>
