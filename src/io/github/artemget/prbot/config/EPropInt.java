@@ -29,7 +29,7 @@ package io.github.artemget.prbot.config;
  *
  * @since 0.0.1
  */
-public class EPropInt implements Entry<Integer> {
+public final class EPropInt implements Entry<Integer> {
     /**
      * Origin entry.
      */
@@ -57,7 +57,7 @@ public class EPropInt implements Entry<Integer> {
     public Integer value() throws EntryException {
         try {
             return Integer.valueOf(this.origin.value());
-        } catch (NumberFormatException exception) {
+        } catch (final NumberFormatException exception) {
             throw new EntryException("Wrong entry type for int entry", exception);
         }
     }
