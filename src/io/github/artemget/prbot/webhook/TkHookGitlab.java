@@ -43,6 +43,9 @@ import org.telegram.telegrambots.meta.generics.LongPollingBot;
  * Gitlab webhook take.
  *
  * @since 0.0.1
+ * @todo #2:60min implement check for gitlab token
+ *  return 401/403 depending at presence/correctness
+ *  of token.
  */
 public final class TkHookGitlab implements Take {
     /**
@@ -89,6 +92,11 @@ public final class TkHookGitlab implements Take {
      * @param request Http
      * @return Telegram update
      * @throws IOException At corrupted body
+     * @todo #2:120min move http request to message
+     *  wrapping to separate class. Message have to
+     *  include attributes required to track
+     *  pr's reviewers, assigners, comments,
+     *  approves etc.
      */
     private static Update updated(final Request request) throws IOException {
         final Update update = new Update();
