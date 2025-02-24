@@ -31,7 +31,6 @@ import io.github.artemget.prbot.config.EntryException;
 import org.takes.Request;
 import org.takes.Response;
 import org.takes.Take;
-import org.takes.facets.auth.PsByFlag;
 import org.takes.facets.auth.TkAuth;
 import org.takes.facets.auth.TkSecure;
 import org.takes.facets.fallback.FbChain;

@@ -40,7 +40,14 @@ import org.takes.rq.RqHeaders;
  * @since 0.0.1
  */
 public final class PsGitlab implements Pass {
+    /**
+     * Gitlab auth header name.
+     */
     private final String header;
+
+    /**
+     * Expected gitlab token value.
+     */
     private final String check;
 
     /**
@@ -53,7 +60,7 @@ public final class PsGitlab implements Pass {
      *
      * @param token Expected
      */
-    public PsGitlab(String token) {
+    public PsGitlab(final String token) {
         this("technical_account_gitlab", "X-Gitlab-Token", token);
     }
 
@@ -76,16 +83,16 @@ public final class PsGitlab implements Pass {
 
     @Override
     public Opt<Identity> enter(final Request request) throws IOException {
-        final boolean authenticated;
+        final boolean auth;
         try {
-            authenticated = this.check.equals(
+            auth = this.check.equals(
                 new RqHeaders.Smart(request).single(this.header)
             );
         } catch (final IOException exception) {
             throw new HttpException(HttpURLConnection.HTTP_UNAUTHORIZED, exception);
         }
         final Opt<Identity> res;
-        if (authenticated) {
+        if (auth) {
             res = new Opt.Single<>(this.technical);
         } else {
             res = new Opt.Empty<>();
