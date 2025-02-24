@@ -22,31 +22,7 @@
  * SOFTWARE.
  */
 
-package io.github.artemget.prbot.config;
-
 /**
- * Property entry.
- *
- * @since 0.0.1
+ * Webhooks for source code platforms.
  */
-public final class EProp implements Entry<String> {
-    /**
-     * Name of property.
-     */
-    private final String name;
-
-    public EProp(final String name) {
-        this.name = name;
-    }
-
-    @Override
-    public String value() throws EntryException {
-        final String value = System.getProperty(this.name);
-        if (value == null) {
-            throw new EntryException(
-                String.format("Empty entry for name %s", this.name)
-            );
-        }
-        return value;
-    }
-}
+package io.github.artemget.prbot.webhook;

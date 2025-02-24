@@ -24,9 +24,9 @@
 
 package io.github.artemget.prbot.bot;
 
-import io.github.artemget.prbot.config.EmptyEntryException;
-import io.github.artemget.prbot.config.EmptyEntryExceptionUnchecked;
 import io.github.artemget.prbot.config.Entry;
+import io.github.artemget.prbot.config.EntryException;
+import io.github.artemget.prbot.config.EntryExceptionUnchecked;
 import io.github.artemget.teleroute.command.Cmd;
 import io.github.artemget.teleroute.command.CmdException;
 import io.github.artemget.teleroute.route.Route;
@@ -72,7 +72,7 @@ public final class BotPr extends TelegramLongPollingBot {
         final Entry<String> name,
         final Entry<String> token,
         final Route<Update, AbsSender>... route
-    ) throws EmptyEntryException {
+    ) throws EntryException {
         super(token.value());
         this.name = name;
         this.route = new RouteDfs<>(route);
@@ -89,8 +89,8 @@ public final class BotPr extends TelegramLongPollingBot {
     public String getBotUsername() {
         try {
             return this.name.value();
-        } catch (final EmptyEntryException exception) {
-            throw new EmptyEntryExceptionUnchecked(exception);
+        } catch (final EntryException exception) {
+            throw new EntryExceptionUnchecked(exception);
         }
     }
 

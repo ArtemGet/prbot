@@ -25,28 +25,40 @@
 package io.github.artemget.prbot.config;
 
 /**
- * Fake inmemory entry.
+ * Integer property entry.
  *
- * @param <T> Value type
  * @since 0.0.1
  */
-public final class FkEntry<T> implements Entry<T> {
+public final class EPropInt implements Entry<Integer> {
     /**
-     * Entry value.
+     * Origin entry.
      */
-    private final T val;
+    private final Entry<String> origin;
+
+    /**
+     * Ctor.
+     *
+     * @param name Property
+     */
+    public EPropInt(final String name) {
+        this(new EProp(name));
+    }
 
     /**
      * Main Ctor.
      *
-     * @param val Entry value
+     * @param origin Property
      */
-    public FkEntry(final T val) {
-        this.val = val;
+    public EPropInt(final Entry<String> origin) {
+        this.origin = origin;
     }
 
     @Override
-    public T value() {
-        return this.val;
+    public Integer value() throws EntryException {
+        try {
+            return Integer.valueOf(this.origin.value());
+        } catch (final NumberFormatException exception) {
+            throw new EntryException("Wrong entry type for int entry", exception);
+        }
     }
 }

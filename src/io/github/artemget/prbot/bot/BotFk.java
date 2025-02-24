@@ -22,31 +22,58 @@
  * SOFTWARE.
  */
 
-package io.github.artemget.prbot.config;
+package io.github.artemget.prbot.bot;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.api.objects.Update;
 
 /**
- * Property entry.
+ * Fake telegram bot. Store all passed updates.
  *
  * @since 0.0.1
  */
-public final class EProp implements Entry<String> {
+public final class BotFk extends TelegramLongPollingBot {
     /**
-     * Name of property.
+     * Passed updates.
      */
-    private final String name;
+    private final Collection<Update> updates;
 
-    public EProp(final String name) {
-        this.name = name;
+    /**
+     * Ctor.
+     */
+    public BotFk() {
+        this(new CopyOnWriteArrayList<>());
+    }
+
+    /**
+     * Main ctor.
+     *
+     * @param updates To start with
+     */
+    public BotFk(final List<Update> updates) {
+        super("Fake token");
+        this.updates = updates;
     }
 
     @Override
-    public String value() throws EntryException {
-        final String value = System.getProperty(this.name);
-        if (value == null) {
-            throw new EntryException(
-                String.format("Empty entry for name %s", this.name)
-            );
-        }
-        return value;
+    public void onUpdateReceived(final Update update) {
+        this.updates.add(update);
+    }
+
+    @Override
+    public String getBotUsername() {
+        return "Fake bot";
+    }
+
+    /**
+     * Retrieve all passed updates.
+     *
+     * @return Updates
+     */
+    public Collection<Update> received() {
+        return this.updates;
     }
 }

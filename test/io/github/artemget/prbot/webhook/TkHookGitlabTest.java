@@ -22,30 +22,48 @@
  * SOFTWARE.
  */
 
-package io.github.artemget.prbot.bot;
+package io.github.artemget.prbot.webhook;
 
-import io.github.artemget.prbot.config.EntryFk;
-import io.github.artemget.teleroute.route.RouteEnd;
-import org.junit.jupiter.api.Assertions;
+import io.github.artemget.prbot.bot.BotFk;
+import java.util.ArrayList;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
-import org.telegram.telegrambots.meta.api.objects.Update;
+import org.takes.rq.RqFake;
+import org.takes.rq.RqWithBody;
+import org.telegram.telegrambots.meta.api.objects.User;
 
 /**
- * Test case {@link BotPr}.
+ * Test case {@link TkHookGitlab}.
  *
  * @since 0.0.1
  */
-class BotPrTest {
+class TkHookGitlabTest {
 
     @Test
-    void throwsAtUnimplementedUpdate() {
-        Assertions.assertDoesNotThrow(
-            () -> new BotPr(
-                new EntryFk<>("prbot"),
-                new EntryFk<>("123"),
-                new RouteEnd<>()
-            ).onUpdateReceived(new Update()),
-            "Throws"
+    void sendsUpdateAtValidBody() {
+        final BotFk bot = new BotFk();
+        new TkHookGitlab(bot).act(new RqWithBody(new RqFake(), "body"));
+        MatcherAssert.assertThat(
+            "Update not sent at valid body",
+            !bot.received().isEmpty()
+        );
+    }
+
+    @Test
+    void sendsUpdateFromTechUser() {
+        final BotFk bot = new BotFk();
+        new TkHookGitlab(bot).act(new RqFake());
+        final User expected = new User();
+        expected.setId(0L);
+        expected.setUserName("Technical account");
+        MatcherAssert.assertThat(
+            "Update not sent at valid body",
+            new ArrayList<>(bot.received())
+                .get(0)
+                .getMessage()
+                .getFrom(),
+            Matchers.equalTo(expected)
         );
     }
 }

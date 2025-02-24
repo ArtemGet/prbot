@@ -31,29 +31,29 @@ import java.io.Serial;
  *
  * @since 0.0.1
  */
-public class EmptyEntryExceptionUnchecked extends RuntimeException {
+public class EntryExceptionUnchecked extends RuntimeException {
     @Serial
     private static final long serialVersionUID = 4176661814037122452L;
 
     /**
      * Empty Ctor.
      */
-    public EmptyEntryExceptionUnchecked() {
+    public EntryExceptionUnchecked() {
         //ignore
     }
 
-    public EmptyEntryExceptionUnchecked(final String message) {
+    public EntryExceptionUnchecked(final String message) {
         super(message);
     }
 
-    public EmptyEntryExceptionUnchecked(
+    public EntryExceptionUnchecked(
         final String message,
         final Throwable cause
     ) {
         super(message, cause);
     }
 
-    public EmptyEntryExceptionUnchecked(final Throwable cause) {
+    public EntryExceptionUnchecked(final Throwable cause) {
         super(cause);
     }
 }

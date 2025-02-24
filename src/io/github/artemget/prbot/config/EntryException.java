@@ -31,22 +31,22 @@ import java.io.Serial;
  *
  * @since 0.0.1
  */
-public class EmptyEntryException extends Exception {
+public class EntryException extends Exception {
     @Serial
     private static final long serialVersionUID = 4172661814037122451L;
 
     /**
      * Empty Ctor.
      */
-    public EmptyEntryException() {
+    public EntryException() {
         //ignore
     }
 
-    public EmptyEntryException(final String message) {
+    public EntryException(final String message) {
         super(message);
     }
 
-    public EmptyEntryException(final String message, final Throwable cause) {
+    public EntryException(final String message, final Throwable cause) {
         super(message, cause);
     }
 }

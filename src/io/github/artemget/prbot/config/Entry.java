@@ -35,7 +35,7 @@ public interface Entry<T> {
      * Entry value.
      *
      * @return Value
-     * @throws EmptyEntryException At entry not present
+     * @throws EntryException At entry not present
      */
-    T value() throws EmptyEntryException;
+    T value() throws EntryException;
 }

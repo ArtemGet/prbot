@@ -25,15 +25,19 @@
 package io.github.artemget.prbot;
 
 import io.github.artemget.prbot.bot.BotPr;
+import io.github.artemget.prbot.bot.BotReg;
 import io.github.artemget.prbot.bot.match.MatchAdminOf;
 import io.github.artemget.prbot.bot.route.RouteAdminAssignFor;
 import io.github.artemget.prbot.bot.route.RouteAdminFor;
 import io.github.artemget.prbot.bot.route.RouteUserFor;
 import io.github.artemget.prbot.config.EProp;
-import io.github.artemget.prbot.config.EmptyEntryException;
+import io.github.artemget.prbot.config.EPropInt;
 import io.github.artemget.prbot.domain.messenger.MessengersTg;
+import io.github.artemget.prbot.webhook.TkHooks;
 import io.github.artemget.teleroute.route.RouteFork;
 import org.jdbi.v3.core.Jdbi;
+import org.takes.http.Exit;
+import org.takes.http.FtBasic;
 
 /**
  * Entrypoint. Application starts here.
@@ -50,18 +54,26 @@ import org.jdbi.v3.core.Jdbi;
     }
 )
 public final class Entrypoint {
-    public static void main(final String[] args) throws EmptyEntryException {
-        final Jdbi src = Jdbi.create(new EProp("pg_connection_url").value());
-        final MessengersTg telegram = new MessengersTg(src);
-        new BotPr(
-            new EProp("name"),
-            new EProp("token"),
-            new RouteAdminAssignFor(telegram),
-            new RouteFork<>(
-                new MatchAdminOf(telegram),
-                new RouteAdminFor()
-            ),
-            new RouteUserFor()
+    public static void main(final String[] args) throws Exception {
+        final MessengersTg telegram = new MessengersTg(
+            Jdbi.create(new EProp("pg_connection_url").value())
         );
+        new FtBasic(
+            new TkHooks(
+                new BotReg(
+                    new BotPr(
+                        new EProp("bot_name"),
+                        new EProp("bot_token"),
+                        new RouteAdminAssignFor(telegram),
+                        new RouteFork<>(
+                            new MatchAdminOf(telegram),
+                            new RouteAdminFor()
+                        ),
+                        new RouteUserFor()
+                    )
+                )
+            ),
+            new EPropInt("port").value()
+        ).start(Exit.NEVER);
     }
 }

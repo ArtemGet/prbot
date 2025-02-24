@@ -25,28 +25,28 @@
 package io.github.artemget.prbot.config;
 
 /**
- * Property entry.
+ * Fake inmemory entry.
  *
+ * @param <T> Value type
  * @since 0.0.1
  */
-public final class EProp implements Entry<String> {
+public final class EntryFk<T> implements Entry<T> {
     /**
-     * Name of property.
+     * Entry value.
      */
-    private final String name;
+    private final T val;
 
-    public EProp(final String name) {
-        this.name = name;
+    /**
+     * Main Ctor.
+     *
+     * @param val Entry value
+     */
+    public EntryFk(final T val) {
+        this.val = val;
     }
 
     @Override
-    public String value() throws EntryException {
-        final String value = System.getProperty(this.name);
-        if (value == null) {
-            throw new EntryException(
-                String.format("Empty entry for name %s", this.name)
-            );
-        }
-        return value;
+    public T value() {
+        return this.val;
     }
 }

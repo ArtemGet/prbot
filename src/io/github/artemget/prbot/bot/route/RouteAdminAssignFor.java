@@ -28,7 +28,7 @@ import io.github.artemget.prbot.bot.command.CmdAdminAssignFor;
 import io.github.artemget.prbot.bot.match.MatchExistsAdminIn;
 import io.github.artemget.prbot.bot.match.Not;
 import io.github.artemget.prbot.config.EProp;
-import io.github.artemget.prbot.config.EmptyEntryException;
+import io.github.artemget.prbot.config.EntryException;
 import io.github.artemget.prbot.domain.messenger.Messengers;
 import io.github.artemget.teleroute.match.MatchAll;
 import io.github.artemget.teleroute.match.MatchRegex;
@@ -47,9 +47,9 @@ public class RouteAdminAssignFor extends RouteEnvelope {
      * Ctor.
      *
      * @param telegram Messenger
-     * @throws EmptyEntryException At empty property
+     * @throws EntryException At empty property
      */
-    public RouteAdminAssignFor(final Messengers<Long> telegram) throws EmptyEntryException {
+    public RouteAdminAssignFor(final Messengers<Long> telegram) throws EntryException {
         this(
             new RouteFork<>(
                 new MatchAll<>(

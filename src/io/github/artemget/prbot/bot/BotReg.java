@@ -22,31 +22,52 @@
  * SOFTWARE.
  */
 
-package io.github.artemget.prbot.config;
+package io.github.artemget.prbot.bot;
+
+import org.telegram.telegrambots.meta.TelegramBotsApi;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import org.telegram.telegrambots.meta.generics.LongPollingBot;
+import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 /**
- * Property entry.
+ * Registerable telegram bot.
  *
  * @since 0.0.1
  */
-public final class EProp implements Entry<String> {
+public final class BotReg implements Register<LongPollingBot> {
     /**
-     * Name of property.
+     * Telegram bot.
      */
-    private final String name;
+    private final LongPollingBot bot;
 
-    public EProp(final String name) {
-        this.name = name;
+    /**
+     * Telegram bot api.
+     */
+    private final TelegramBotsApi api;
+
+    /**
+     * Ctor.
+     *
+     * @param bot Telegram
+     * @throws TelegramApiException If fails to create session
+     */
+    public BotReg(final LongPollingBot bot) throws TelegramApiException {
+        this(bot, new TelegramBotsApi(DefaultBotSession.class));
     }
 
-    @Override
-    public String value() throws EntryException {
-        final String value = System.getProperty(this.name);
-        if (value == null) {
-            throw new EntryException(
-                String.format("Empty entry for name %s", this.name)
-            );
-        }
-        return value;
+    /**
+     * Main Ctor.
+     *
+     * @param bot Telegram
+     * @param api Registers
+     */
+    public BotReg(final LongPollingBot bot, final TelegramBotsApi api) {
+        this.bot = bot;
+        this.api = api;
+    }
+
+    public LongPollingBot registered() throws TelegramApiException {
+        this.api.registerBot(this.bot);
+        return this.bot;
     }
 }
