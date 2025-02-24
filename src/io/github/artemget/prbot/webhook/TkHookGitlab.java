@@ -89,7 +89,7 @@ public final class TkHookGitlab implements Take {
      * @param request Http
      * @return Telegram update
      * @throws IOException At corrupted body
-     * @todo #3:120min move http request to message
+     * @todo #6:120min move http request to message
      *  wrapping to separate class. Message have to
      *  include attributes required to track
      *  pr's reviewers, assigners, comments,
