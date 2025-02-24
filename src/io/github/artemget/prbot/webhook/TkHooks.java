@@ -95,17 +95,10 @@ public final class TkHooks implements Take {
                             )
                         )
                     ),
-                    new PsByFlag(
-                        "X-Gitlab-Token",
-                        new PsByFlag.Pair(
-                            token,
-                            new PsGitlab()
-                        )
-                    )
+                    new PsGitlab(token)
                 ),
                 new FbChain(
                     new FbStatus(401, new RsWithStatus(new RsText("unauthenticated"), 401)),
-                    new FbStatus(403, new RsWithStatus(new RsText("restricted access"), 403)),
                     new FbStatus(404, new RsWithStatus(new RsText("route not found"), 404)),
                     new FbStatus(405, new RsWithStatus(new RsText("no suitable method"), 405)),
                     req -> new Opt.Single<>(new RsWithStatus(new RsText("bad request"), 500))

@@ -30,7 +30,7 @@ package io.github.artemget.prbot.config;
  * @param <T> Value type
  * @since 0.0.1
  */
-public final class FkEntry<T> implements Entry<T> {
+public final class EntryFk<T> implements Entry<T> {
     /**
      * Entry value.
      */
@@ -41,7 +41,7 @@ public final class FkEntry<T> implements Entry<T> {
      *
      * @param val Entry value
      */
-    public FkEntry(final T val) {
+    public EntryFk(final T val) {
         this.val = val;
     }
 

@@ -24,11 +24,15 @@
 
 package io.github.artemget.prbot.webhook;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import org.takes.HttpException;
 import org.takes.Request;
 import org.takes.Response;
 import org.takes.facets.auth.Identity;
 import org.takes.facets.auth.Pass;
 import org.takes.misc.Opt;
+import org.takes.rq.RqHeaders;
 
 /**
  * Authenticate gitlab technical user.
@@ -36,6 +40,9 @@ import org.takes.misc.Opt;
  * @since 0.0.1
  */
 public final class PsGitlab implements Pass {
+    private final String header;
+    private final String check;
+
     /**
      * Gitlab technical user.
      */
@@ -43,32 +50,47 @@ public final class PsGitlab implements Pass {
 
     /**
      * Ctor.
-     */
-    public PsGitlab() {
-        this("technical_account_gitlab");
-    }
-
-    /**
-     * Ctor.
      *
-     * @param name Of user
+     * @param token Expected
      */
-    public PsGitlab(final String name) {
-        this(new Identity.Simple(name));
+    public PsGitlab(String token) {
+        this("technical_account_gitlab", "X-Gitlab-Token", token);
     }
 
     /**
      * Main ctor.
      *
-     * @param technical User
+     * @param name Of user
+     * @param header Auth
+     * @param token Expected
      */
-    public PsGitlab(final Identity technical) {
-        this.technical = technical;
+    public PsGitlab(
+        final String name,
+        final String header,
+        final String token
+    ) {
+        this.technical = new Identity.Simple(name);
+        this.header = header;
+        this.check = token;
     }
 
     @Override
-    public Opt<Identity> enter(final Request request) {
-        return new Opt.Single<>(this.technical);
+    public Opt<Identity> enter(final Request request) throws IOException {
+        final boolean authenticated;
+        try {
+            authenticated = this.check.equals(
+                new RqHeaders.Smart(request).single(this.header)
+            );
+        } catch (final IOException exception) {
+            throw new HttpException(HttpURLConnection.HTTP_UNAUTHORIZED, exception);
+        }
+        final Opt<Identity> res;
+        if (authenticated) {
+            res = new Opt.Single<>(this.technical);
+        } else {
+            res = new Opt.Empty<>();
+        }
+        return res;
     }
 
     @Override
