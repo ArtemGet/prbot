@@ -10,7 +10,7 @@ line 2: Issue number - Issue name
 
 line 3: [[Link](link to pull request)] [BranchFromName](link to branch) -> [BranchToName](link to branch)
 
-line 4: AssignerApproveCheckbox Reviewer1ApproveCheckbox
+line 4: AssignerApproveCheckbox Reviewer1ApproveCheckbox MergeCheckbox(If merged)
 
 line N-1: same as line 3 (used when pull requests are linked)
 
@@ -23,6 +23,8 @@ Approve: ✅
 
 Comments above: ❌
 
+Merged: 👍
+
 ##Message example
 line 1: @Assigner @Reviewer
 
@@ -30,7 +32,7 @@ line 2: ISSUE-123 [BE] - touch the grass
 
 line 3: [[Link](https://link-to-pull-request)] [develop](https://link-to-develop-branch) -> [release](https://link-to-release-branch)
 
-line 4: ☐ ✅
+line 4: 👍 ✅ ☐
 
 ##Reactions
 If pull request is merged - bot set a 👍 reaction

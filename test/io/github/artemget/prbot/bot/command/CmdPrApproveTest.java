@@ -24,27 +24,23 @@
 
 package io.github.artemget.prbot.bot.command;
 
-import io.github.artemget.teleroute.command.Cmd;
-import io.github.artemget.teleroute.command.CmdException;
-import io.github.artemget.teleroute.send.Send;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.bots.AbsSender;
 
 /**
- * Command for pull request closed.
+ * Test case {@link CmdPrApprove}.
  *
  * @since 0.0.1
- * @todo #6:60min message should be edited at all selected chats.
- *  If message has linked requests, reaction ❌ should be
- *  set only if all of them are closed. Otherwise
- *  pull request should be marked as cancelled via strikethrough.
- *  Assigner should be notified via personal messages.
- *  See message template in readme.
  */
-public final class CmdPrClose implements Cmd<Update, AbsSender> {
+class CmdPrApproveTest {
 
-    @Override
-    public Send<AbsSender> execute(final Update update) throws CmdException {
-        throw new UnsupportedOperationException("unimplemented");
+    @Test
+    void throwsUnimplemented() {
+        Assertions.assertThrows(
+            UnsupportedOperationException.class,
+            () -> new CmdPrApprove().execute(new Update()),
+            "Not thrown at unimplemented"
+        );
     }
 }

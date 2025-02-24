@@ -31,17 +31,14 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.bots.AbsSender;
 
 /**
- * Command for pull request closed.
+ * Command for pull request approved.
  *
  * @since 0.0.1
- * @todo #6:60min message should be edited at all selected chats.
- *  If message has linked requests, reaction ❌ should be
- *  set only if all of them are closed. Otherwise
- *  pull request should be marked as cancelled via strikethrough.
- *  Assigner should be notified via personal messages.
+ * @todo #6:30min message should be edited at all selected chats.
+ *  ✅ sign should replace ☐ in right reviewer order.
  *  See message template in readme.
  */
-public final class CmdPrClose implements Cmd<Update, AbsSender> {
+public final class CmdPrApprove implements Cmd<Update, AbsSender> {
 
     @Override
     public Send<AbsSender> execute(final Update update) throws CmdException {
