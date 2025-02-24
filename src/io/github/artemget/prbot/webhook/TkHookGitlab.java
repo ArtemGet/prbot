@@ -43,9 +43,6 @@ import org.telegram.telegrambots.meta.generics.LongPollingBot;
  * Gitlab webhook take.
  *
  * @since 0.0.1
- * @todo #2:60min implement check for gitlab token
- *  return 401/403 depending at presence/correctness
- *  of token.
  */
 public final class TkHookGitlab implements Take {
     /**
