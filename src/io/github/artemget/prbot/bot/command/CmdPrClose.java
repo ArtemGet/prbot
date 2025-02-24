@@ -31,21 +31,17 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.bots.AbsSender;
 
 /**
- * Command for pull request just opened.
+ * Cmd for pull request closed.
  *
  * @since 0.0.1
- * @todo #6:120min update should be send to all selected chats.
- *  Update should include:
- *  1)Tag assigner and reviewers
- *  2)If ASAP trigger word is present in pull request message - notify
- *  assigner via personal message.
- *  3)Link pull request in a group if there are any other
- *  pull requests with the same issue number. In this
- *  case there should not be a new message sent but
- *  previous updated.
+ * @todo #6:60min message should be edited at all selected chats.
+ *  If message has linked requests, reaction ❌ should be
+ *  set only if all of them are closed. Otherwise
+ *  pull request should be marked as cancelled via strikethrough.
+ *  Assigner should be notified via personal messages.
  *  See message template in readme.
  */
-public final class CmdPrOpen implements Cmd<Update, AbsSender> {
+public final class CmdPrClose implements Cmd<Update, AbsSender> {
 
     @Override
     public Send<AbsSender> execute(final Update update) throws CmdException {
