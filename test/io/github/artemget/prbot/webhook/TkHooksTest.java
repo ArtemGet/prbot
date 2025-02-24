@@ -33,6 +33,11 @@ import org.takes.rq.RqFake;
 import org.takes.rq.RqWithHeader;
 import org.takes.rs.RsPrint;
 
+/**
+ * Test case {@link TkHooks}.
+ *
+ * @since 0.0.1
+ */
 class TkHooksTest {
 
     @Test
