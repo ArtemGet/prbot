@@ -24,31 +24,23 @@
 
 package io.github.artemget.prbot.bot.command;
 
-import io.github.artemget.teleroute.command.Cmd;
-import io.github.artemget.teleroute.command.CmdException;
-import io.github.artemget.teleroute.send.Send;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.bots.AbsSender;
 
 /**
- * Command for pull request just opened.
+ * Test case {@link CmdPrMerge}.
  *
  * @since 0.0.1
- * @todo #6:120min update should be sent to all selected chats.
- *  Update should include:
- *  1)Tag assigner and reviewers
- *  2)If ASAP trigger word is present in pull request message - notify
- *  assigner via personal message.
- *  3)Link pull request in a group if there are any other
- *  pull requests with the same issue number. In this
- *  case there should not be a new message sent but
- *  previous updated.
- *  See message template in readme.
  */
-public final class CmdPrOpen implements Cmd<Update, AbsSender> {
+class CmdPrMergeTest {
 
-    @Override
-    public Send<AbsSender> execute(final Update update) throws CmdException {
-        throw new UnsupportedOperationException("unimplemented");
+    @Test
+    void throwsUnimplemented() {
+        Assertions.assertThrows(
+            UnsupportedOperationException.class,
+            () -> new CmdPrMerge().execute(new Update()),
+            "Not thrown at unimplemented"
+        );
     }
 }

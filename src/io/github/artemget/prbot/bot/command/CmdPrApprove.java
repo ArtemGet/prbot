@@ -36,6 +36,8 @@ import org.telegram.telegrambots.meta.bots.AbsSender;
  * @since 0.0.1
  * @todo #6:30min message should be edited at all selected chats.
  *  ✅ sign should replace ☐ in right reviewer order.
+ *  Assigner should be notified via personal message if
+ *  number of approves exceed limit set up for a project.
  *  See message template in readme.
  */
 public final class CmdPrApprove implements Cmd<Update, AbsSender> {
