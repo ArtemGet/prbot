@@ -54,7 +54,7 @@ public class MatchEnvelope implements Predicate<Wrap<Update>> {
     }
 
     @Override
-    public boolean test(final Wrap<Update> updateWrap) {
-        return this.origin.test(updateWrap);
+    public boolean test(final Wrap<Update> update) {
+        return this.origin.test(update);
     }
 }
