@@ -32,7 +32,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
  * Wrap for Match predicate.
  *
  * @since 0.0.1
- * @todo #1:15min move this class to
+ * @todo #1:15min move {@link MatchEnvelope} class to
  *  <a href="https://github.com/ArtemGet/teleroute">teleroute</a>,
  *  thus it would be useful in other bots. Tests required.
  *  Note that this class is extendable.
