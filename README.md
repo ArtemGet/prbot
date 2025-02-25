@@ -2,13 +2,13 @@
 
 [![Build](https://github.com/ArtemGet/prbot/actions/workflows/maven.yaml/badge.svg)](https://github.com/ArtemGet/prbot/actions/workflows/maven.yaml)
 
-#Message template:
+# Message template:
 
 line 1: TagAssigner TagReviewer1 TagReviewer2 TagReviewerN
 
 line 2: Issue number - Issue name
 
-line 3: [[Link](link to pull request)] [BranchFromName](link to branch) -> [BranchToName](link to branch)
+line 3: [[Link](https://link-to-pull-request)] [BranchFromName](https://link-to-branch) -> [BranchToName]([link to branch](https://link-to-branch))
 
 line 4: AssignerApproveCheckbox Reviewer1ApproveCheckbox MergeCheckbox(If merged)
 
@@ -16,7 +16,7 @@ line N-1: same as line 3 (used when pull requests are linked)
 
 line N: same as line 4 (used when pull requests are linked) Reviewer2ApproveCheckbox ReviewerNApproveCheckbox
 
-##Checkboxes
+## Checkboxes
 Pending: ☐
 
 Approve: ✅
