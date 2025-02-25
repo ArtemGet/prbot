@@ -29,32 +29,32 @@ import java.util.function.Predicate;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 /**
- * Inverted match.
+ * Wrap for Match predicate.
  *
  * @since 0.0.1
- * @todo #1:10min move this class into
- *  <a href="https://github.com/ArtemGet/teleroute">teleroute</a>
+ * @todo #1:15min move this class to
+ *  <a href="https://github.com/ArtemGet/teleroute">teleroute</a>,
  *  thus it would be useful in other bots. Tests required.
+ *  Note that this class is extendable.
+ * @checkstyle DesignForExtensionCheck (100 lines)
  */
-public final class Not extends MatchEnvelope {
+public class MatchEnvelope implements Predicate<Wrap<Update>> {
     /**
-     * Ctor.
+     * Wrapped predicate match.
      */
-    public Not() {
-        super(ignore -> true);
-    }
+    private final Predicate<Wrap<Update>> origin;
 
     /**
-     * Main Ctor.
+     * Main ctor.
      *
-     * @param origin Predicate match
+     * @param origin Match predicate
      */
-    public Not(final Predicate<Wrap<Update>> origin) {
-        super(origin);
+    public MatchEnvelope(final Predicate<Wrap<Update>> origin) {
+        this.origin = origin;
     }
 
     @Override
-    public boolean test(final Wrap<Update> update) {
-        return !super.test(update);
+    public boolean test(final Wrap<Update> updateWrap) {
+        return this.origin.test(updateWrap);
     }
 }

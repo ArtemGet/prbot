@@ -26,35 +26,38 @@ package io.github.artemget.prbot.bot.match;
 
 import io.github.artemget.teleroute.update.Wrap;
 import java.util.function.Predicate;
+import org.hamcrest.TypeSafeMatcher;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 /**
- * Inverted match.
+ * Check update message's text is JSON
+ * and matches provided condition.
  *
  * @since 0.0.1
- * @todo #1:10min move this class into
- *  <a href="https://github.com/ArtemGet/teleroute">teleroute</a>
+ * @todo #1:15min move this class to
+ *  <a href="https://github.com/ArtemGet/teleroute">teleroute</a>,
  *  thus it would be useful in other bots. Tests required.
+ *  Note that this class is extendable.
  */
-public final class Not extends MatchEnvelope {
+public final class MatchJson implements Predicate<Wrap<Update>> {
     /**
-     * Ctor.
+     * Wrapped json match.
      */
-    public Not() {
-        super(ignore -> true);
-    }
+    private final TypeSafeMatcher<String> json;
 
     /**
-     * Main Ctor.
+     * Main ctor.
      *
-     * @param origin Predicate match
+     * @param json Match
      */
-    public Not(final Predicate<Wrap<Update>> origin) {
-        super(origin);
+    public MatchJson(final TypeSafeMatcher<String> json) {
+        this.json = json;
     }
 
     @Override
     public boolean test(final Wrap<Update> update) {
-        return !super.test(update);
+        return update.text()
+            .map(this.json::matches)
+            .orElse(false);
     }
 }
