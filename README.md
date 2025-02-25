@@ -34,7 +34,7 @@ line 3: [[Link](https://link-to-pull-request)] [develop](https://link-to-develop
 
 line 4: 👍 ✅ ☐
 
-##Reactions
+## Reactions
 If pull request is merged - bot set a 👍 reaction
 
 If pull request is closed - bot set a ❌ reaction
