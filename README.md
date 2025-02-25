@@ -8,7 +8,7 @@ line 1: TagAssigner TagReviewer1 TagReviewer2 TagReviewerN
 
 line 2: Issue number - Issue name
 
-line 3: [[Link](https://link-to-pull-request)] [BranchFromName](https://link-to-branch) -> [BranchToName]([link to branch](https://link-to-branch))
+line 3: [[Link](https://link-to-pull-request)] [BranchFromName](https://link-to-branch) -> [BranchToName](https://link-to-branch)
 
 line 4: AssignerApproveCheckbox Reviewer1ApproveCheckbox MergeCheckbox(If merged)
 
