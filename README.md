@@ -25,7 +25,7 @@ Comments above: ❌
 
 Merged: 👍
 
-##Message example
+## Message example
 line 1: @Assigner @Reviewer
 
 line 2: ISSUE-123 [BE] - touch the grass
