@@ -32,7 +32,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.bots.AbsSender;
 
 /**
- * Wrapper for route.
+ * Wrap for route.
  *
  * @since 0.0.1
  * @todo #1:15min move this class to

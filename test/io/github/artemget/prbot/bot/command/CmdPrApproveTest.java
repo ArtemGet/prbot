@@ -22,30 +22,25 @@
  * SOFTWARE.
  */
 
-package io.github.artemget.prbot.bot;
+package io.github.artemget.prbot.bot.command;
 
-import io.github.artemget.prbot.config.EntryFk;
-import io.github.artemget.teleroute.route.RouteEnd;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 /**
- * Test case {@link BotPr}.
+ * Test case {@link CmdPrApprove}.
  *
  * @since 0.0.1
  */
-class BotPrTest {
+class CmdPrApproveTest {
 
     @Test
-    void throwsAtUnimplementedUpdate() {
-        Assertions.assertDoesNotThrow(
-            () -> new BotPr(
-                new EntryFk<>("prbot"),
-                new EntryFk<>("123"),
-                new RouteEnd<>()
-            ).onUpdateReceived(new Update()),
-            "Throws"
+    void throwsUnimplemented() {
+        Assertions.assertThrows(
+            UnsupportedOperationException.class,
+            () -> new CmdPrApprove().execute(new Update()),
+            "Not thrown at unimplemented"
         );
     }
 }

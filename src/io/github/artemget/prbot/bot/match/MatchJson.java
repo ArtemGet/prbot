@@ -22,30 +22,42 @@
  * SOFTWARE.
  */
 
-package io.github.artemget.prbot.bot;
+package io.github.artemget.prbot.bot.match;
 
-import io.github.artemget.prbot.config.EntryFk;
-import io.github.artemget.teleroute.route.RouteEnd;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import io.github.artemget.teleroute.update.Wrap;
+import java.util.function.Predicate;
+import org.hamcrest.TypeSafeMatcher;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 /**
- * Test case {@link BotPr}.
+ * Check update message's text is JSON
+ * and matches provided condition.
  *
  * @since 0.0.1
+ * @todo #1:15min move {@link MatchJson} class to
+ *  <a href="https://github.com/ArtemGet/teleroute">teleroute</a>,
+ *  thus it would be useful in other bots. Tests required.
+ *  Note that this class is extendable.
  */
-class BotPrTest {
+public final class MatchJson implements Predicate<Wrap<Update>> {
+    /**
+     * Wrapped json match.
+     */
+    private final TypeSafeMatcher<String> json;
 
-    @Test
-    void throwsAtUnimplementedUpdate() {
-        Assertions.assertDoesNotThrow(
-            () -> new BotPr(
-                new EntryFk<>("prbot"),
-                new EntryFk<>("123"),
-                new RouteEnd<>()
-            ).onUpdateReceived(new Update()),
-            "Throws"
-        );
+    /**
+     * Main ctor.
+     *
+     * @param json Match
+     */
+    public MatchJson(final TypeSafeMatcher<String> json) {
+        this.json = json;
+    }
+
+    @Override
+    public boolean test(final Wrap<Update> update) {
+        return update.text()
+            .map(this.json::matches)
+            .orElse(false);
     }
 }

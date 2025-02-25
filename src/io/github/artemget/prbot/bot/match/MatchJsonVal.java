@@ -26,35 +26,66 @@ package io.github.artemget.prbot.bot.match;
 
 import io.github.artemget.teleroute.update.Wrap;
 import java.util.function.Predicate;
+import org.hamcrest.TypeSafeMatcher;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import wtf.g4s8.hamcrest.json.JsonHas;
+import wtf.g4s8.hamcrest.json.StringIsJson;
 
 /**
- * Inverted match.
+ * Wraps {@link MatchJson}.
+ * Check update message's text is JSON
+ * and matches attribute has expected value.
  *
  * @since 0.0.1
- * @todo #1:10min move this class into
- *  <a href="https://github.com/ArtemGet/teleroute">teleroute</a>
- *  thus it would be useful in other bots. Tests required.
  */
-public final class Not extends MatchEnvelope {
+public final class MatchJsonVal extends MatchEnvelope {
+
     /**
      * Ctor.
+     *
+     * @param value For body.object_attributes.action attribute
      */
-    public Not() {
-        super(ignore -> true);
+    public MatchJsonVal(final String value) {
+        this("action", value);
     }
 
     /**
-     * Main Ctor.
+     * Configures predefined match that
+     * checks attribute has value
+     * in body.object_attributes.* JSON string.
+     *
+     * @param attribute Json
+     * @param value For json attribute
+     */
+    public MatchJsonVal(final String attribute, final String value) {
+        this(
+            new StringIsJson.Object(
+                new JsonHas(
+                    "body",
+                    new JsonHas(
+                        "object_attributes",
+                        new JsonHas(attribute, value)
+                    )
+                )
+            )
+        );
+    }
+
+    /**
+     * Ctor.
+     *
+     * @param match Json
+     */
+    public MatchJsonVal(final TypeSafeMatcher<String> match) {
+        this(new MatchJson(match));
+    }
+
+    /**
+     * Main ctor.
      *
      * @param origin Predicate match
      */
-    public Not(final Predicate<Wrap<Update>> origin) {
+    private MatchJsonVal(final Predicate<Wrap<Update>> origin) {
         super(origin);
-    }
-
-    @Override
-    public boolean test(final Wrap<Update> update) {
-        return !super.test(update);
     }
 }

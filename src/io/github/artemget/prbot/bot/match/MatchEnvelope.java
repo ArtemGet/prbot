@@ -22,30 +22,39 @@
  * SOFTWARE.
  */
 
-package io.github.artemget.prbot.bot;
+package io.github.artemget.prbot.bot.match;
 
-import io.github.artemget.prbot.config.EntryFk;
-import io.github.artemget.teleroute.route.RouteEnd;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import io.github.artemget.teleroute.update.Wrap;
+import java.util.function.Predicate;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 /**
- * Test case {@link BotPr}.
+ * Wrap for Match predicate.
  *
  * @since 0.0.1
+ * @todo #1:15min move {@link MatchEnvelope} class to
+ *  <a href="https://github.com/ArtemGet/teleroute">teleroute</a>,
+ *  thus it would be useful in other bots. Tests required.
+ *  Note that this class is extendable.
+ * @checkstyle DesignForExtensionCheck (100 lines)
  */
-class BotPrTest {
+public class MatchEnvelope implements Predicate<Wrap<Update>> {
+    /**
+     * Wrapped predicate match.
+     */
+    private final Predicate<Wrap<Update>> origin;
 
-    @Test
-    void throwsAtUnimplementedUpdate() {
-        Assertions.assertDoesNotThrow(
-            () -> new BotPr(
-                new EntryFk<>("prbot"),
-                new EntryFk<>("123"),
-                new RouteEnd<>()
-            ).onUpdateReceived(new Update()),
-            "Throws"
-        );
+    /**
+     * Main ctor.
+     *
+     * @param origin Match predicate
+     */
+    public MatchEnvelope(final Predicate<Wrap<Update>> origin) {
+        this.origin = origin;
+    }
+
+    @Override
+    public boolean test(final Wrap<Update> update) {
+        return this.origin.test(update);
     }
 }
