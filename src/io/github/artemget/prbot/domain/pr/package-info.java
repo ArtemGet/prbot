@@ -22,27 +22,10 @@
  * SOFTWARE.
  */
 
-package io.github.artemget.prbot.domain.pr;
-
 /**
- * User's account at any information system.
- *
- * @since 0.0.1
+ * Pullrequest package. The goal of all classes is
+ * to provide info about received via webhook
+ * pullrequest and parse to/from json in
+ * different structures.
  */
-public interface Account {
-    /**
-     * Returns account id.
-     *
-     * @return Identity
-     * @throws EmptyArgumentException If id not exists
-     */
-    String identity() throws EmptyArgumentException;
-
-    /**
-     * Return account name.
-     *
-     * @return Account name
-     * @throws EmptyArgumentException If account name not exists
-     */
-    String username() throws EmptyArgumentException;
-}
+package io.github.artemget.prbot.domain.pr;
