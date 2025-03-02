@@ -31,71 +31,70 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
- * Test cases {@link AccJson}.
+ * Test cases {@link BrJson}.
  *
  * @since 0.0.1
  */
-class AccJsonTest {
-
+class BrJsonTest {
     @Test
-    void throwsAtEmptyUsername() {
+    void throwsAtEmptyName() {
         Assertions.assertThrows(
             EmptyArgumentException.class,
-            () -> new AccJson(Json.createObjectBuilder().build()).username(),
-            "Exception not thrown at empty username"
+            () -> new BrJson(Json.createObjectBuilder().build()).name(),
+            "Exception not thrown at empty branch name"
         );
     }
 
     @Test
-    void throwsAtIntUsername() {
+    void throwsAtIntName() {
         Assertions.assertThrows(
             EmptyArgumentException.class,
-            () -> new AccJson(
-                Json.createObjectBuilder().add("username", 123).build()
-            ).username(),
-            "Exception not thrown at integer username"
+            () -> new BrJson(
+                Json.createObjectBuilder().add("name", 123).build()
+            ).name(),
+            "Exception not thrown at integer branch name"
         );
     }
 
     @Test
-    void returnsUsername() throws EmptyArgumentException {
+    void returnsName() throws EmptyArgumentException {
         MatcherAssert.assertThat(
-            "Wrong username returned",
-            new AccJson(
-                Json.createObjectBuilder().add("username", "123").build()
-            ).username(),
+            "Wrong branch name returned",
+            new BrJson(
+                Json.createObjectBuilder().add("name", "123").build()
+            ).name(),
             Matchers.equalTo("123")
         );
     }
 
     @Test
-    void throwsAtEmptyIdentity() {
+    void throwsAtEmptyLink() {
         Assertions.assertThrows(
             EmptyArgumentException.class,
-            () -> new AccJson(Json.createObjectBuilder().build()).identity(),
-            "Exception not thrown at empty id"
+            () -> new BrJson(Json.createObjectBuilder().build()).link(),
+            "Exception not thrown at empty link"
         );
     }
 
     @Test
-    void throwsAtIntegerIdentity() {
+    void throwsAtIntegerLink() {
         Assertions.assertThrows(
             EmptyArgumentException.class,
-            () -> new AccJson(
-                Json.createObjectBuilder().add("id", 123).build()
-            ).identity(),
-            "Exception not thrown at integer id"
+            () -> new BrJson(
+                Json.createObjectBuilder().add("link", 123).build()
+            ).link(),
+            "Exception not thrown at integer link"
         );
     }
 
     @Test
-    void returnsIdentity() throws EmptyArgumentException {
+    void returnsLink() throws EmptyArgumentException {
         MatcherAssert.assertThat(
-            "Wrong id returned",
-            new AccJson(
-                Json.createObjectBuilder().add("id", "123").build()
-            ).identity(),
-            Matchers.equalTo("123")
+            "Wrong branch link returned",
+            new BrJson(
+                Json.createObjectBuilder().add("link", "http://ex.com").build()
+            ).link(),
+            Matchers.equalTo("http://ex.com")
         );
     }
 }

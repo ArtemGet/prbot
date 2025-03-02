@@ -27,7 +27,7 @@ package io.github.artemget.prbot.domain.pr;
 import javax.json.JsonObject;
 
 /**
- * User's account.
+ * User's account from json source.
  *
  * @since 0.0.1
  */
@@ -36,7 +36,7 @@ public final class AccJson implements Account {
      * Json containing account's id and name.
      * Suggested structure:
      * {
-     *   "id": 123,
+     *   "id": "123",
      *   "username": "username",
      *   ...
      * }
