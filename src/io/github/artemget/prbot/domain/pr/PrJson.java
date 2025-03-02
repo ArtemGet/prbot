@@ -25,11 +25,13 @@
 package io.github.artemget.prbot.domain.pr;
 
 import java.io.StringReader;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import javax.json.Json;
+import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
+import javax.json.JsonValue;
 
 public class PrJson implements PullRequest {
     private final JsonObject json;
@@ -43,44 +45,122 @@ public class PrJson implements PullRequest {
     }
 
     @Override
-    public String identity() {
-        return null;
+    public String identity() throws EmptyArgumentException {
+        if (!this.json.containsKey("id")) {
+            throw new EmptyArgumentException(
+                String.format("Empty pull-request id. Request: %s", this.json)
+            );
+        }
+        try {
+            return this.json.getString("id");
+        } catch (final ClassCastException exception) {
+            throw new EmptyArgumentException(
+                String.format(
+                    "Wrong pull-request id format: %s. Request: %s",
+                    this.json.get("id").getValueType(),
+                    this.json
+                ),
+                exception
+            );
+        }
     }
 
     @Override
-    public Status status() {
-        return switch (
-            this.payload()
-                .getJsonObject("object_attributes")
-                .getString("state")
-            ) {
-            case "opened" -> Status.OPENED;
-            case "closed" -> Status.CLOSED;
-            case "merged" -> Status.MERGED;
-            default -> throw new RuntimeException();
-        };
+    public Status status() throws EmptyArgumentException {
+        if (!this.json.containsKey("status")) {
+            throw new EmptyArgumentException(
+                String.format("Empty pull-request status. Request: %s", this.json)
+            );
+        }
+        final String status;
+        try {
+            status = this.json.getString("status");
+        } catch (final ClassCastException exception) {
+            throw new EmptyArgumentException(
+                String.format(
+                    "Wrong pull-request status format: %s. Request: %s",
+                    this.json.get("status").getValueType(),
+                    this.json
+                ),
+                exception
+            );
+        }
+        try {
+            return PullRequest.Status.valueOf(status);
+        } catch (final IllegalArgumentException exception) {
+            throw new EmptyArgumentException(
+                String.format("Unknown pull-request status: %s. Request: %s", status, this.json),
+                exception
+            );
+        }
     }
 
     @Override
-    public Account from() {
-//        return new UserJson(this.payload().getJsonObject("user"));
-        return null;
+    public Account from() throws EmptyArgumentException {
+        if (!this.json.containsKey("from")) {
+            throw new EmptyArgumentException(String.format("Empty pull-request creator. Request: %s", this.json));
+        }
+        try {
+            return new AccJson(this.json.getJsonObject("from"));
+        } catch (final ClassCastException exception) {
+            throw new EmptyArgumentException(
+                String.format(
+                    "Wrong pull-request creator format: %s. Request: %s",
+                    this.json.get("from").getValueType(),
+                    this.json
+                ),
+                exception
+            );
+        }
     }
 
     @Override
-    public List<Account> assigners() {
-        return this.payload().getJsonArray("assignees")
-            .stream()
-            .map(val -> new AccJson(val.asJsonObject()))
-            .collect(Collectors.toList());
+    public List<Account> assigners() throws EmptyArgumentException {
+        return this.accounts("assigners");
     }
 
     @Override
-    public List<Account> reviewers() {
-        return this.payload().getJsonArray("reviewers")
-            .stream()
-            .map(val -> new AccJson(val.asJsonObject()))
-            .collect(Collectors.toList());
+    public List<Account> reviewers() throws EmptyArgumentException {
+        return this.accounts("reviewers");
+    }
+
+    public List<Account> accounts(String field) throws EmptyArgumentException {
+        if (!this.json.containsKey(field)) {
+            throw new EmptyArgumentException(
+                String.format("Empty pull-request %s. Request: %s", field, this.json)
+            );
+        }
+        final JsonArray values;
+        try {
+            values = this.json.getJsonArray(field);
+        } catch (final ClassCastException exception) {
+            throw new EmptyArgumentException(
+                String.format(
+                    "Wrong array format for pull-request %s: %s. Request: %s",
+                    field,
+                    this.json.get("assignees").getValueType(),
+                    this.json
+                ),
+                exception
+            );
+        }
+        final List<Account> accounts = new ArrayList<>();
+        for (final JsonValue assignee : values) {
+            try {
+                accounts.add(new AccJson(assignee.asJsonObject()));
+            } catch (final ClassCastException exception) {
+                throw new EmptyArgumentException(
+                    String.format(
+                        "Wrong pull-request %s format: %s. Request: %s",
+                        field,
+                        assignee.getValueType(),
+                        this.json
+                    ),
+                    exception
+                );
+            }
+        }
+        return accounts;
     }
 
     @Override
@@ -93,9 +173,9 @@ public class PrJson implements PullRequest {
         return null;
     }
 
-    private JsonObject payload() {
-//        return this.json.get().getJsonObject("payload");
-        return null;
+    @Override
+    public String toString() {
+        return this.json.toString();
     }
 
     private static JsonObject parsed(String json) {

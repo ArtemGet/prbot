@@ -26,20 +26,25 @@ package io.github.artemget.prbot.domain.pr;
 
 import java.util.List;
 
+/**
+ * Git pullrequest.
+ *
+ * @since 0.0.1
+ */
 public interface PullRequest {
-    String identity();
+    String identity() throws EmptyArgumentException;
 
-    Status status();
+    Status status() throws EmptyArgumentException;
 
-    Account from();
+    Account from() throws EmptyArgumentException;
 
-    List<Account> assigners();
+    List<Account> assigners() throws EmptyArgumentException;
 
-    List<Account> reviewers();
+    List<Account> reviewers() throws EmptyArgumentException;
 
-    Branch branchFrom();
+    Branch branchFrom() throws EmptyArgumentException;
 
-    Branch branchTo();
+    Branch branchTo() throws EmptyArgumentException;
 
     enum Status {
         OPENED,

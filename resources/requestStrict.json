@@ -6,7 +6,7 @@
     "id": "11802",
     "name": "TM-1234 [BE] test1",
     "description": "test description",
-    "service": "service name",
+    "status": "opened",
     "created": "2025-02-26 10:51:12 UTC",
     "updated": "2025-02-26 10:51:12 UTC",
     "from": {
