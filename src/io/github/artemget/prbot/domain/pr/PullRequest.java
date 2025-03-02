@@ -27,6 +27,8 @@ package io.github.artemget.prbot.domain.pr;
 import java.util.List;
 
 public interface PullRequest {
+    String identity();
+
     Status status();
 
     Account from();

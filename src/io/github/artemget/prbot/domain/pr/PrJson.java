@@ -24,31 +24,27 @@
 
 package io.github.artemget.prbot.domain.pr;
 
-import io.github.artemget.prbot.domain.users.User;
-import io.github.artemget.prbot.domain.users.UserJson;
 import java.io.StringReader;
 import java.util.List;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 
 public class PrJson implements PullRequest {
-    private final Supplier<JsonObject> json;
+    private final JsonObject json;
 
     public PrJson(String json) {
-        this(
-            () -> {
-                try (JsonReader read = Json.createReader(new StringReader(json))) {
-                    return read.readObject();
-                }
-            }
-        );
+        this(PrJson.parsed(json));
     }
 
-    public PrJson(Supplier<JsonObject> json) {
+    public PrJson(JsonObject json) {
         this.json = json;
+    }
+
+    @Override
+    public String identity() {
+        return null;
     }
 
     @Override
@@ -67,7 +63,8 @@ public class PrJson implements PullRequest {
 
     @Override
     public Account from() {
-        return new UserJson(this.payload().getJsonObject("user"));
+//        return new UserJson(this.payload().getJsonObject("user"));
+        return null;
     }
 
     @Override
@@ -97,6 +94,13 @@ public class PrJson implements PullRequest {
     }
 
     private JsonObject payload() {
-        return this.json.get().getJsonObject("payload");
+//        return this.json.get().getJsonObject("payload");
+        return null;
+    }
+
+    private static JsonObject parsed(String json) {
+        try (JsonReader read = Json.createReader(new StringReader(json))) {
+            return read.readObject();
+        }
     }
 }
