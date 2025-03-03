@@ -124,7 +124,7 @@ public class PrJson implements PullRequest {
         return this.accounts("reviewers");
     }
 
-    public List<Account> accounts(String field) throws EmptyArgumentException {
+    private List<Account> accounts(String field) throws EmptyArgumentException {
         if (!this.json.containsKey(field)) {
             throw new EmptyArgumentException(
                 String.format("Empty pull-request %s. Request: %s", field, this.json)
@@ -138,7 +138,7 @@ public class PrJson implements PullRequest {
                 String.format(
                     "Wrong array format for pull-request %s: %s. Request: %s",
                     field,
-                    this.json.get("assignees").getValueType(),
+                    this.json.get(field).getValueType(),
                     this.json
                 ),
                 exception
@@ -165,7 +165,7 @@ public class PrJson implements PullRequest {
 
     @Override
     public Branch branchFrom() {
-        return null;
+        return this.branch("");
     }
 
     @Override
@@ -176,6 +176,47 @@ public class PrJson implements PullRequest {
     @Override
     public String toString() {
         return this.json.toString();
+    }
+
+    private List<Branch> branch(String field) throws EmptyArgumentException {
+        final List<Branch> branches = new ArrayList<>();
+        for (final JsonValue branch : this.opened(field)) {
+            try {
+                branches.add(new BrJson(branch.asJsonObject()));
+            } catch (final ClassCastException exception) {
+                throw new EmptyArgumentException(
+                    String.format(
+                        "Wrong pull-request %s format: %s. Request: %s",
+                        field,
+                        branch.getValueType(),
+                        this.json
+                    ),
+                    exception
+                );
+            }
+        }
+        return branches;
+    }
+
+    private JsonArray opened(String field) throws EmptyArgumentException {
+        if (!this.json.containsKey(field)) {
+            throw new EmptyArgumentException(
+                String.format("Empty pull-request %s. Request: %s", field, this.json)
+            );
+        }
+        try {
+            return this.json.getJsonArray(field);
+        } catch (final ClassCastException exception) {
+            throw new EmptyArgumentException(
+                String.format(
+                    "Wrong array format for pull-request %s: %s. Request: %s",
+                    field,
+                    this.json.get(field).getValueType(),
+                    this.json
+                ),
+                exception
+            );
+        }
     }
 
     private static JsonObject parsed(String json) {
