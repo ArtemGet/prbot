@@ -28,42 +28,41 @@ import javax.json.JsonObject;
 import org.cactoos.Scalar;
 
 /**
- * Eject {@link JsonObject} from provided json. Null safe.
+ * Eject {@link String} value from provided json. Null safe.
  *
  * @since 0.0.1
  */
-public final class EJsonObj implements Entry<JsonObject> {
+public final class EJsonStr implements Entry<String> {
     /**
-     * Scalar returning {@link JsonObject}.
+     * Scalar returning {@link String}.
      */
-    private final Scalar<JsonObject> json;
+    private final Scalar<String> json;
 
     /**
-     * Default ctor. Get {@link JsonObject} by it's attribute name.
+     * Default ctor. Get {@link String} by it's attribute name.
      * Wraps provided json in {@link Scalar}.
      *
      * @param json Object
      * @param attr To lookup
      */
-    public EJsonObj(final JsonObject json, final String attr) {
+    public EJsonStr(final JsonObject json, final String attr) {
         this(() -> json, attr);
     }
 
     /**
-     * Get {@link JsonObject} by it's attribute name
-     * from json provided by {@link Scalar}.
+     * Get {@link String} by it's attribute name.
      *
      * @param json Scalar source json
      * @param attr To lookup
      */
-    public EJsonObj(final Scalar<JsonObject> json, final String attr) {
+    public EJsonStr(final Scalar<JsonObject> json, final String attr) {
         this(
             () -> {
                 try {
-                    return json.value().getJsonObject(attr);
+                    return json.value().getString(attr);
                 } catch (final ClassCastException exception) {
                     throw new EntryException(
-                        String.format("Attribute %s couldn't be mapped to JsonObject", attr),
+                        String.format("Attribute %s couldn't be mapped to String", attr),
                         exception
                     );
                 }
@@ -72,17 +71,16 @@ public final class EJsonObj implements Entry<JsonObject> {
     }
 
     /**
-     * Main ctor. Get {@link JsonObject} by
-     * yourself.
+     * Main Ctor. Implement by yourself.
      *
      * @param json Scalar
      */
-    public EJsonObj(final Scalar<JsonObject> json) {
+    public EJsonStr(final Scalar<String> json) {
         this.json = () -> new ESafe<>(json).value();
     }
 
     @Override
-    public JsonObject value() throws EntryException {
+    public String value() throws EntryException {
         try {
             return this.json.value();
         } catch (final Exception exception) {
