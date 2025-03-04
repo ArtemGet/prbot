@@ -24,6 +24,8 @@
 
 package io.github.artemget.prbot.domain.pr;
 
+import io.github.artemget.prbot.config.EJsonStr;
+import io.github.artemget.prbot.config.EntryException;
 import javax.json.JsonObject;
 
 /**
@@ -54,16 +56,13 @@ public final class AccJson implements Account {
 
     @Override
     public String identity() throws EmptyArgumentException {
-        if (!this.json.containsKey("id")) {
-            throw new EmptyArgumentException("Empty account identity");
-        }
         try {
-            return this.json.getString("id");
-        } catch (final ClassCastException exception) {
+            return new EJsonStr(this.json, "id").value();
+        } catch (final EntryException exception) {
             throw new EmptyArgumentException(
                 String.format(
-                    "Wrong account identity format: %s",
-                    this.json.get("id").getValueType()
+                    "Failed to get account id. Source json: %s",
+                    this.json.toString()
                 ),
                 exception
             );
@@ -72,16 +71,13 @@ public final class AccJson implements Account {
 
     @Override
     public String username() throws EmptyArgumentException {
-        if (!this.json.containsKey("username")) {
-            throw new EmptyArgumentException("Empty account name");
-        }
         try {
-            return this.json.getString("username");
-        } catch (final ClassCastException exception) {
+            return new EJsonStr(this.json, "username").value();
+        } catch (final EntryException exception) {
             throw new EmptyArgumentException(
                 String.format(
-                    "Wrong account name format: %s",
-                    this.json.get("username").getValueType()
+                    "Failed to get account name. Source json: %s",
+                    this.json.toString()
                 ),
                 exception
             );
