@@ -25,7 +25,7 @@
 package io.github.artemget.prbot.webhook;
 
 import io.github.artemget.prbot.bot.BotFk;
-import io.github.artemget.prbot.config.EntryFk;
+import io.github.artemget.prbot.config.EFake;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
@@ -45,7 +45,7 @@ class TkHooksTest {
         MatcherAssert.assertThat(
             "Passed without token",
             new RsPrint(
-                new TkHooks(new BotFk(), new EntryFk<>("123"))
+                new TkHooks(new BotFk(), new EFake<>("123"))
                     .act(new RqFake())
             ).printBody(),
             Matchers.equalTo("unauthenticated")
@@ -57,7 +57,7 @@ class TkHooksTest {
         MatcherAssert.assertThat(
             "Unauthenticated at correct token",
             new RsPrint(
-                new TkHooks(new BotFk(), new EntryFk<>("123"))
+                new TkHooks(new BotFk(), new EFake<>("123"))
                     .act(
                         new RqWithHeader(
                             new RqFake("POST", "/webhooks/gitlab"),
@@ -75,7 +75,7 @@ class TkHooksTest {
         MatcherAssert.assertThat(
             "Passed without token",
             new RsPrint(
-                new TkHooks(new BotFk(), new EntryFk<>("123"))
+                new TkHooks(new BotFk(), new EFake<>("123"))
                     .act(
                         new RqWithHeader(
                             new RqFake("GET", "/webhooks/gitlab"),

@@ -24,26 +24,15 @@
 
 package io.github.artemget.prbot.config;
 
-import java.io.Serial;
-
 /**
- * Throws when entry is empty.
+ * Fake entry. Always throws.
  *
+ * @param <T> Value type
  * @since 0.0.1
  */
-public class EntryException extends Exception {
-    @Serial
-    private static final long serialVersionUID = 4172661814037122451L;
-
-    public EntryException(Throwable cause) {
-        super(cause);
-    }
-
-    public EntryException(final String message) {
-        super(message);
-    }
-
-    public EntryException(final String message, final Throwable cause) {
-        super(message, cause);
+public final class EFakeErr<T> implements Entry<T> {
+    @Override
+    public T value() throws EntryException {
+        throw new EntryException("Fake error");
     }
 }
