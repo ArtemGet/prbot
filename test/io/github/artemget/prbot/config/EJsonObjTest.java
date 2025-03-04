@@ -24,42 +24,62 @@
 
 package io.github.artemget.prbot.config;
 
+import javax.json.Json;
+import javax.json.JsonObject;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
- * Test cases for {@link ESafe}.
+ * Test cases for {@link EJsonObj}.
  *
  * @since 0.0.1
  */
-class ESafeTest {
+class EJsonObjTest {
 
     @Test
-    void throwsWhenScalarThrows() {
+    void throwsAtWrongAttrType() {
         Assertions.assertThrows(
             EntryException.class,
-            () -> new ESafe<>(() -> {throw new EntryException("error");}).value(),
-            "Safe entry did not rethrow scalar exception"
+            () -> new EJsonObj(
+                Json.createObjectBuilder()
+                    .add("name", "not json object")
+                    .build(),
+                "name"
+            ).value(),
+            "EJsonObj did not rethrow at wrong field type"
         );
     }
 
     @Test
-    void throwsWhenNull() {
+    void throwsAtNullValue() {
         Assertions.assertThrows(
             EntryException.class,
-            () -> new ESafe<>(() -> null).value(),
-            "Safe entry did not throw at null value"
+            () -> new EJsonObj(
+                Json.createObjectBuilder().build(),
+                "name"
+            ).value(),
+            "EJsonObj did not rethrow at null"
         );
     }
 
     @Test
-    void returnsScalarValue() throws EntryException {
+    void returnsObject() throws EntryException {
+        final JsonObject object = Json.createObjectBuilder()
+            .add(
+                "user",
+                Json.createObjectBuilder()
+                    .add("name", "zarif")
+                    .build()
+            ).build();
         MatcherAssert.assertThat(
-            "Safe entry did not return suggested value",
-            new ESafe<>(() -> "value").value(),
-            Matchers.equalTo("value")
+            "EJsonObj did not return expected value",
+            new EJsonObj(
+                object,
+                "user"
+            ).value(),
+            Matchers.equalTo(object.getJsonObject("user"))
         );
     }
 }

@@ -23,7 +23,7 @@
  */
 
 /**
- * Test cases for {@link io.github.artemget.prbot.domain.pr.RequestWebhook}
- * and it's internals.
+ * Test cases for {@link io.github.artemget.prbot.config.Entry}
+ * and it's implementations.
  */
-package io.github.artemget.prbot.domain.pr;
+package io.github.artemget.prbot.config;
