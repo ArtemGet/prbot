@@ -24,6 +24,8 @@
 
 package io.github.artemget.prbot.domain.pr;
 
+import io.github.artemget.prbot.config.EJsonStr;
+import io.github.artemget.prbot.config.EntryException;
 import javax.json.JsonObject;
 
 /**
@@ -54,16 +56,13 @@ public final class BrJson implements Branch {
 
     @Override
     public String name() throws EmptyArgumentException {
-        if (!this.json.containsKey("name")) {
-            throw new EmptyArgumentException("Empty branch name");
-        }
         try {
-            return this.json.getString("name");
-        } catch (final ClassCastException exception) {
+            return new EJsonStr(this.json, "name").value();
+        } catch (final EntryException exception) {
             throw new EmptyArgumentException(
                 String.format(
-                    "Wrong branch name format: %s",
-                    this.json.get("name").getValueType()
+                    "Failed to get branch name. Source json: %s",
+                    this.json.toString()
                 ),
                 exception
             );
@@ -72,16 +71,13 @@ public final class BrJson implements Branch {
 
     @Override
     public String link() throws EmptyArgumentException {
-        if (!this.json.containsKey("link")) {
-            throw new EmptyArgumentException("Empty branch link");
-        }
         try {
-            return this.json.getString("link");
-        } catch (final ClassCastException exception) {
+            return new EJsonStr(this.json, "link").value();
+        } catch (final EntryException exception) {
             throw new EmptyArgumentException(
                 String.format(
-                    "Wrong branch link format: %s",
-                    this.json.get("link").getValueType()
+                    "Failed to get branch link. Source json: %s",
+                    this.json.toString()
                 ),
                 exception
             );
