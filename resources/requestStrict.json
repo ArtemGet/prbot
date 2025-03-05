@@ -4,6 +4,7 @@
   "action": "open",
   "pullRequest": {
     "id": "11802",
+    "link": "",
     "name": "TM-1234 [BE] test1",
     "description": "test description",
     "status": "opened",
@@ -13,29 +14,31 @@
       "id": 123,
       "username": "user"
     },
-    "assignee": {
-      "id": 123,
-      "username": "user"
-    },
-    "reviewers": [
+    "assignees": [
       {
         "id": 123,
         "username": "user"
       }
     ],
+    "reviewers": [
+      {
+        "id": 321,
+        "username": "user2"
+      }
+    ],
     "branches": {
       "from": {
         "name": "main",
-        "link": ""
+        "link": "from"
       },
       "to": {
         "name": "release",
-        "link": ""
+        "link": "to"
       }
     },
-    "project":{
+    "project": {
       "name": "prbot",
-      "link": ""
+      "link": "project"
     }
   }
 }
