@@ -101,6 +101,7 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.2.5</version>
         <configuration>
+          <forkCount>0</forkCount>
           <argLine>${argLine}</argLine>
         </configuration>
       </plugin>
@@ -235,6 +236,9 @@
                 </exclude>
                 <exclude>
                   dependencies:org.hamcrest:hamcrest:jar:2.2:compile
+                </exclude>
+                <exclude>
+                  dependencies:org.cactoos:cactoos:jar:0.56.1:compile
                 </exclude>
               </excludes>
             </configuration>

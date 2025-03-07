@@ -81,6 +81,8 @@ public final class EJsonObj implements Entry<JsonObject> {
         this.json = () -> new ESafe<>(json).value();
     }
 
+    //@checkstyle IllegalCatchCheck (7 lines)
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     @Override
     public JsonObject value() throws EntryException {
         try {

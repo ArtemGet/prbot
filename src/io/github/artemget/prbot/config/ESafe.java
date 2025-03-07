@@ -44,7 +44,7 @@ public final class ESafe<T> implements Entry<T> {
      *
      * @param origin Value
      */
-    public ESafe(T origin) {
+    public ESafe(final T origin) {
         this(() -> origin);
     }
 
@@ -53,10 +53,12 @@ public final class ESafe<T> implements Entry<T> {
      *
      * @param origin Scalar
      */
-    public ESafe(Scalar<T> origin) {
+    public ESafe(final Scalar<T> origin) {
         this.origin = origin;
     }
 
+    //@checkstyle IllegalCatchCheck (8 lines)
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     @Override
     public T value() throws EntryException {
         final T value;

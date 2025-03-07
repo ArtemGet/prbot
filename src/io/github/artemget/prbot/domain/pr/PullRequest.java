@@ -98,8 +98,19 @@ public interface PullRequest {
     Branch branchTo() throws EmptyArgumentException;
 
     enum Status {
+        /**
+         * Open pull-request.
+         */
         OPENED,
+
+        /**
+         * Successfully closed pull-request via merge.
+         */
         MERGED,
+
+        /**
+         * Closed pull-request, rejected and not merged.
+         */
         CLOSED;
     }
 }

@@ -41,7 +41,8 @@ import javax.json.JsonReader;
  *
  * @since 0.0.1
  */
-public class PrJsonStrict implements PullRequest {
+@SuppressWarnings("PMD.OnlyOneConstructorShouldDoInitialization")
+public final class PrJsonStrict implements PullRequest {
     /**
      * Json containing pull-request json in strict format.
      * <a href="file:../resources/PrStrict.json">PrStrict.json</a>
@@ -54,7 +55,8 @@ public class PrJsonStrict implements PullRequest {
      * @param json String
      * @throws EntryException If String not valid json
      */
-    public PrJsonStrict(String json) throws EntryException {
+    @SuppressWarnings("PMD.ConstructorOnlyInitializesOrCallOtherConstructors")
+    public PrJsonStrict(final String json) throws EntryException {
         this(
             new EJsonObj(
                 () -> {
@@ -71,7 +73,7 @@ public class PrJsonStrict implements PullRequest {
      *
      * @param json Object
      */
-    public PrJsonStrict(JsonObject json) {
+    public PrJsonStrict(final JsonObject json) {
         this.json = json;
     }
 
@@ -158,7 +160,17 @@ public class PrJsonStrict implements PullRequest {
         return this.accounts("reviewers");
     }
 
-    private List<Account> accounts(String field) throws EmptyArgumentException {
+    @Override
+    public Branch branchFrom() throws EmptyArgumentException {
+        return this.branch("from");
+    }
+
+    @Override
+    public Branch branchTo() throws EmptyArgumentException {
+        return this.branch("to");
+    }
+
+    private List<Account> accounts(final String field) throws EmptyArgumentException {
         final JsonArray accounts;
         try {
             accounts = new EJsonArr(this.json, field).value();
@@ -175,21 +187,6 @@ public class PrJsonStrict implements PullRequest {
         return accounts.stream()
             .map(account -> new AccJson(account.asJsonObject()))
             .collect(Collectors.toList());
-    }
-
-    @Override
-    public Branch branchFrom() throws EmptyArgumentException {
-        return this.branch("from");
-    }
-
-    @Override
-    public Branch branchTo() throws EmptyArgumentException {
-        return this.branch("to");
-    }
-
-    @Override
-    public String toString() {
-        return this.json.toString();
     }
 
     private Branch branch(final String field) throws EmptyArgumentException {

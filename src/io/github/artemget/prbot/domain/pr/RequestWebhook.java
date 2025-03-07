@@ -27,27 +27,70 @@ package io.github.artemget.prbot.domain.pr;
 import io.github.artemget.prbot.config.Entry;
 import io.github.artemget.prbot.config.EntryException;
 
+/**
+ * Source code platform webhook request.
+ *
+ * @since 0.0.1
+ */
 public interface RequestWebhook {
-    String token();
+    /**
+     * Request's auth token.
+     *
+     * @return Token
+     * @throws EmptyArgumentException If fails
+     */
+    String token() throws EmptyArgumentException;
 
-    String action();
+    /**
+     * Action taken at pull-request. OPENED, UPDATED,
+     * APPROVED, UNAPPROVED, MERGED.
+     *
+     * @return Action status
+     * @throws EmptyArgumentException If fails
+     */
+    String action() throws EmptyArgumentException;
 
-    String platform();
+    /**
+     * Source code platform name.
+     *
+     * @return Platform name
+     * @throws EmptyArgumentException If fails
+     */
+    String platform() throws EmptyArgumentException;
 
-    Project project();
+    /**
+     * Project.
+     *
+     * @return Project
+     * @throws EmptyArgumentException Source code platform name
+     */
+    Project project() throws EmptyArgumentException;
 
+    /**
+     * Pull-request payload.
+     *
+     * @return Pull-request payload
+     */
     PullRequest pullRequest();
 
-    final class JsonStrict implements Entry<String> {
+    /**
+     * Entry that makes strict request from any format.
+     *
+     * @since 0.0.1
+     */
+    final class RequestsStrict implements Entry<RequestWebhook> {
+        /**
+         * Request webhook of any format.
+         */
         private final RequestWebhook request;
 
-        public JsonStrict(RequestWebhook request) {
+        public RequestsStrict(final RequestWebhook request) {
             this.request = request;
         }
 
         @Override
-        public String value() throws EntryException {
-            return null;
+        public RequestWebhook value() throws EntryException {
+            throw new UnsupportedOperationException("unimplemented");
         }
     }
 }

@@ -79,6 +79,8 @@ public final class EJsonStr implements Entry<String> {
         this.json = () -> new ESafe<>(json).value();
     }
 
+    //@checkstyle IllegalCatchCheck (7 lines)
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     @Override
     public String value() throws EntryException {
         try {

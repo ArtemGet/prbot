@@ -35,7 +35,7 @@ public class EntryException extends Exception {
     @Serial
     private static final long serialVersionUID = 4172661814037122451L;
 
-    public EntryException(Throwable cause) {
+    public EntryException(final Throwable cause) {
         super(cause);
     }
 

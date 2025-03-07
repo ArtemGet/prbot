@@ -46,10 +46,7 @@ public class EntryExceptionUnchecked extends RuntimeException {
         super(message);
     }
 
-    public EntryExceptionUnchecked(
-        final String message,
-        final Throwable cause
-    ) {
+    public EntryExceptionUnchecked(final String message, final Throwable cause) {
         super(message, cause);
     }
 
