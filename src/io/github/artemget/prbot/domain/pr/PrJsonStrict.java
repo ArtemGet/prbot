@@ -42,6 +42,10 @@ import javax.json.JsonReader;
  * @since 0.0.1
  */
 public class PrJsonStrict implements PullRequest {
+    /**
+     * Json containing pull-request json in strict format.
+     * <a href="file:../resources/PrStrict.json">PrStrict.json</a>
+     */
     private final JsonObject json;
 
     /**

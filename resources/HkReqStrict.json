@@ -1,0 +1,44 @@
+{
+  "token": "123",
+  "gitp": "gitlab",
+  "action": "open",
+  "project": {
+    "name": "prbot",
+    "link": "https://github.com/ArtemGet/prbot"
+  },
+  "pullRequest": {
+    "id": "10",
+    "link": "https://github.com/ArtemGet/prbot/pull/10",
+    "name": "TM-1234 [BE] test1",
+    "description": "test description",
+    "status": "opened",
+    "created": "2025-02-26 10:51:12 UTC",
+    "updated": "2025-02-26 10:51:12 UTC",
+    "from": {
+      "id": "123",
+      "username": "ArtemGet"
+    },
+    "assignees": [
+      {
+        "id": "123",
+        "username": "ArtemGet"
+      }
+    ],
+    "reviewers": [
+      {
+        "id": "321",
+        "username": "ReviewerUser"
+      }
+    ],
+    "branches": {
+      "from": {
+        "name": "Eh/#6",
+        "link": "https://github.com/ArtemGet/prbot/tree/eh/%236"
+      },
+      "to": {
+        "name": "main",
+        "link": "https://github.com/ArtemGet/prbot/tree/main"
+      }
+    }
+  }
+}
