@@ -56,6 +56,10 @@ public final class MatchJsonVal extends MatchEnvelope {
      *
      * @param attribute Json
      * @param value For json attribute
+     * @todo #6:30 rewrite this structure to support
+     *  strict json format. Check resources dir to
+     *  find strict format. Probably move this logic to
+     *  separate class with name MatchJsonStrict.
      */
     public MatchJsonVal(final String attribute, final String value) {
         this(
