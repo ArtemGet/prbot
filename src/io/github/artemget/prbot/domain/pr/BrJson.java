@@ -26,7 +26,7 @@ package io.github.artemget.prbot.domain.pr;
 
 import io.github.artemget.prbot.config.EJsonStr;
 import io.github.artemget.prbot.config.EntryException;
-import javax.json.JsonObject;
+import jakarta.json.JsonObject;
 
 /**
  * Git branch from json source.
