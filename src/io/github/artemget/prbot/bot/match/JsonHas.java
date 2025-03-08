@@ -34,6 +34,11 @@ import org.hamcrest.TypeSafeMatcher;
  * Matches json object fields.
  *
  * @since 0.1
+ * @todo #20:15 remove {@link JsonHas},
+ *  {@link io.github.artemget.prbot.bot.match.JsonValueIs}
+ *  and {@link io.github.artemget.prbot.bot.match.StringIsJson} from this project when
+ *  <a href="https://github.com/g4s8/matchers-json/issues/16">matchers-json jakarta issue</a>
+ *  would be closed. Add matchers-json dependency and fix used imports through the project.
  */
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public final class JsonHas extends TypeSafeMatcher<JsonObject> {
