@@ -24,6 +24,9 @@
 
 package io.github.artemget.prbot.webhook;
 
+import io.github.artemget.prbot.config.EntryException;
+import io.github.artemget.prbot.domain.pr.ReqHkGitlab;
+import io.github.artemget.prbot.domain.pr.RequestWebhook;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -70,7 +73,7 @@ public final class TkHookGitlab implements Take {
         try {
             this.bot.onUpdateReceived(TkHookGitlab.updated(request));
             response = new RsWithStatus(new RsEmpty(), 200);
-        } catch (final IOException exception) {
+        } catch (final IOException | EntryException exception) {
             LOG.error(
                 String.format(
                     "Error wrapping http request to telegram update. request: %s",
@@ -89,13 +92,8 @@ public final class TkHookGitlab implements Take {
      * @param request Http
      * @return Telegram update
      * @throws IOException At corrupted body
-     * @todo #6:120min move http request to message
-     *  wrapping to separate class. Message have to
-     *  include attributes required to track
-     *  pr's reviewers, assigners, comments,
-     *  approves etc.
      */
-    private static Update updated(final Request request) throws IOException {
+    private static Update updated(final Request request) throws IOException, EntryException {
         final Update update = new Update();
         update.setMessage(TkHookGitlab.wrapped(request));
         return update;
@@ -108,14 +106,18 @@ public final class TkHookGitlab implements Take {
      * @return Telegram message
      * @throws IOException At corrupted body
      */
-    private static Message wrapped(final Request request) throws IOException {
+    private static Message wrapped(final Request request) throws IOException, EntryException {
         final User user = new User();
         user.setId(0L);
         user.setUserName("Technical account");
         final Message message = new Message();
         message.setFrom(user);
         try (InputStream input = request.body()) {
-            message.setText(new String(input.readAllBytes(), StandardCharsets.UTF_8));
+            message.setText(
+                new RequestWebhook.RequestsStrict(
+                    new ReqHkGitlab(new String(input.readAllBytes(), StandardCharsets.UTF_8))
+                ).value()
+            );
         }
         return message;
     }

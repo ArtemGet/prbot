@@ -77,8 +77,13 @@ public interface RequestWebhook {
      * Entry that makes strict request from any format.
      *
      * @since 0.0.1
+     * @todo #6:45 implement parsing any webhook to
+     *  strict json format. See strict format under
+     *  resources dir. After that go to tests
+     *  {@link io.github.artemget.prbot.webhook.TkHookGitlab},
+     *  fix them and remove @Disabled annotation.
      */
-    final class RequestsStrict implements Entry<RequestWebhook> {
+    final class RequestsStrict implements Entry<String> {
         /**
          * Request webhook of any format.
          */
@@ -89,7 +94,7 @@ public interface RequestWebhook {
         }
 
         @Override
-        public RequestWebhook value() throws EntryException {
+        public String value() throws EntryException {
             throw new UnsupportedOperationException("unimplemented");
         }
     }

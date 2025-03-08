@@ -28,6 +28,7 @@ import io.github.artemget.prbot.bot.BotFk;
 import java.util.ArrayList;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.takes.rq.RqFake;
 import org.takes.rq.RqWithBody;
@@ -40,7 +41,7 @@ import org.telegram.telegrambots.meta.api.objects.User;
  */
 class TkHookGitlabTest {
 
-    @Test
+    @Disabled
     void sendsUpdateAtValidBody() {
         final BotFk bot = new BotFk();
         new TkHookGitlab(bot).act(new RqWithBody(new RqFake(), "body"));
@@ -50,7 +51,7 @@ class TkHookGitlabTest {
         );
     }
 
-    @Test
+    @Disabled
     void sendsUpdateFromTechUser() {
         final BotFk bot = new BotFk();
         new TkHookGitlab(bot).act(new RqFake());

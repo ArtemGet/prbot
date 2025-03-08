@@ -24,6 +24,13 @@
 
 package io.github.artemget.prbot.domain.pr;
 
+import io.github.artemget.prbot.config.EJsonObj;
+import io.github.artemget.prbot.config.EntryException;
+import java.io.StringReader;
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
+
 /**
  * Gitlab webhook request.
  *
@@ -33,8 +40,47 @@ package io.github.artemget.prbot.domain.pr;
  *  should be implemented. You could find test request samples
  *  under resources dir.
  */
-@SuppressWarnings("PMD.AvoidDuplicateLiterals")
+@SuppressWarnings({
+    "PMD.AvoidDuplicateLiterals",
+    "PMD.OnlyOneConstructorShouldDoInitialization",
+    "PMD.SingularField",
+    "AnnotationUseStyleCheck"
+})
 public final class ReqHkGitlab implements RequestWebhook {
+    /**
+     * Json containing gitlab webhook request.
+     * See resources dir.
+     */
+    private final JsonObject json;
+
+    /**
+     * Wraps json string in to {@link javax.json.JsonObject}.
+     *
+     * @param json String
+     * @throws EntryException If fails
+     */
+    @SuppressWarnings("PMD.ConstructorOnlyInitializesOrCallOtherConstructors")
+    public ReqHkGitlab(final String json) throws EntryException {
+        this(
+            new EJsonObj(
+                () -> {
+                    try (JsonReader read = Json.createReader(new StringReader(json))) {
+                        return read.readObject();
+                    }
+                }
+            ).value()
+        );
+    }
+
+    /**
+     * Main ctor.
+     *
+     * @param json Object
+     */
+    public ReqHkGitlab(final JsonObject json) {
+        this.json = json;
+    }
+
     @Override
     public String token() throws EmptyArgumentException {
         throw new UnsupportedOperationException("unimplemented");
