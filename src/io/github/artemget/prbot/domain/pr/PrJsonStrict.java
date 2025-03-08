@@ -28,13 +28,13 @@ import io.github.artemget.prbot.config.EJsonArr;
 import io.github.artemget.prbot.config.EJsonObj;
 import io.github.artemget.prbot.config.EJsonStr;
 import io.github.artemget.prbot.config.EntryException;
+import jakarta.json.Json;
+import jakarta.json.JsonArray;
+import jakarta.json.JsonObject;
+import jakarta.json.JsonReader;
 import java.io.StringReader;
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonObject;
-import javax.json.JsonReader;
 
 /**
  * Pull request from source strict json.
