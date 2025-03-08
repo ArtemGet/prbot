@@ -22,28 +22,29 @@
  * SOFTWARE.
  */
 
-package io.github.artemget.prbot.config;
+package io.github.artemget.prbot.domain.pr;
 
 import java.io.Serial;
 
 /**
- * Throws when entry is empty.
+ * Thrown at empty argument.
+ * Checked analogue of {@link NullPointerException}.
  *
  * @since 0.0.1
  */
-public class EntryException extends Exception {
+public final class EmptyArgumentException extends Exception {
     @Serial
-    private static final long serialVersionUID = 4172661814037122451L;
+    private static final long serialVersionUID = 4174061814037127455L;
 
-    public EntryException(final Throwable cause) {
-        super(cause);
-    }
-
-    public EntryException(final String message) {
+    public EmptyArgumentException(final String message) {
         super(message);
     }
 
-    public EntryException(final String message, final Throwable cause) {
+    public EmptyArgumentException(final String message, final Throwable cause) {
         super(message, cause);
+    }
+
+    public EmptyArgumentException(final Throwable cause) {
+        super(cause);
     }
 }

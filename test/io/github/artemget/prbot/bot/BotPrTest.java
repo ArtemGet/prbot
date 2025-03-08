@@ -24,7 +24,7 @@
 
 package io.github.artemget.prbot.bot;
 
-import io.github.artemget.prbot.config.EntryFk;
+import io.github.artemget.prbot.config.EFake;
 import io.github.artemget.teleroute.route.RouteEnd;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -41,8 +41,8 @@ class BotPrTest {
     void throwsAtUnimplementedUpdate() {
         Assertions.assertDoesNotThrow(
             () -> new BotPr(
-                new EntryFk<>("prbot"),
-                new EntryFk<>("123"),
+                new EFake<>("prbot"),
+                new EFake<>("123"),
                 new RouteEnd<>()
             ).onUpdateReceived(new Update()),
             "Throws"

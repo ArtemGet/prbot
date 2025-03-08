@@ -22,28 +22,27 @@
  * SOFTWARE.
  */
 
-package io.github.artemget.prbot.config;
-
-import java.io.Serial;
+package io.github.artemget.prbot.domain.pr;
 
 /**
- * Throws when entry is empty.
+ * Git project.
  *
  * @since 0.0.1
  */
-public class EntryException extends Exception {
-    @Serial
-    private static final long serialVersionUID = 4172661814037122451L;
+public interface Project {
+    /**
+     * Returns git project's name.
+     *
+     * @return Git project's name
+     * @throws EmptyArgumentException If not exists
+     */
+    String name() throws EmptyArgumentException;
 
-    public EntryException(final Throwable cause) {
-        super(cause);
-    }
-
-    public EntryException(final String message) {
-        super(message);
-    }
-
-    public EntryException(final String message, final Throwable cause) {
-        super(message, cause);
-    }
+    /**
+     * Returns link to project.
+     *
+     * @return Link to project
+     * @throws EmptyArgumentException If not exists
+     */
+    String link() throws EmptyArgumentException;
 }

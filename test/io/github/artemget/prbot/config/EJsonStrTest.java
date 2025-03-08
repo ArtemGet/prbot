@@ -22,49 +22,58 @@
  * SOFTWARE.
  */
 
-package io.github.artemget.prbot.webhook;
+package io.github.artemget.prbot.config;
 
-import io.github.artemget.prbot.bot.BotFk;
-import java.util.ArrayList;
+import javax.json.Json;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
-import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.takes.rq.RqFake;
-import org.takes.rq.RqWithBody;
-import org.telegram.telegrambots.meta.api.objects.User;
 
 /**
- * Test case {@link TkHookGitlab}.
+ * Test cases for {@link EJsonStr}.
  *
  * @since 0.0.1
  */
-class TkHookGitlabTest {
+class EJsonStrTest {
 
-    @Disabled
-    void sendsUpdateAtValidBody() {
-        final BotFk bot = new BotFk();
-        new TkHookGitlab(bot).act(new RqWithBody(new RqFake(), "body"));
-        MatcherAssert.assertThat(
-            "Update not sent at valid body",
-            !bot.received().isEmpty()
+    @Test
+    void throwsAtWrongAttrType() {
+        Assertions.assertThrows(
+            EntryException.class,
+            () -> new EJsonStr(
+                Json.createObjectBuilder()
+                    .add("name", 123)
+                    .build(),
+                "name"
+            ).value(),
+            "EJsonStr did not rethrow at wrong field type"
         );
     }
 
-    @Disabled
-    void sendsUpdateFromTechUser() {
-        final BotFk bot = new BotFk();
-        new TkHookGitlab(bot).act(new RqFake());
-        final User expected = new User();
-        expected.setId(0L);
-        expected.setUserName("Technical account");
+    @Test
+    void throwsAtNullValue() {
+        Assertions.assertThrows(
+            EntryException.class,
+            () -> new EJsonStr(
+                Json.createObjectBuilder().build(),
+                "name"
+            ).value(),
+            "EJsonStr did not rethrow at null"
+        );
+    }
+
+    @Test
+    void returnsValue() throws EntryException {
         MatcherAssert.assertThat(
-            "Update not sent at valid body",
-            new ArrayList<>(bot.received())
-                .get(0)
-                .getMessage()
-                .getFrom(),
-            Matchers.equalTo(expected)
+            "EJsonStr did not return expected value",
+            new EJsonStr(
+                Json.createObjectBuilder()
+                    .add("name", "123")
+                    .build(),
+                "name"
+            ).value(),
+            Matchers.equalTo("123")
         );
     }
 }

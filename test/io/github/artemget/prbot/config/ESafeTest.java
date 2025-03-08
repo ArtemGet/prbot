@@ -22,49 +22,44 @@
  * SOFTWARE.
  */
 
-package io.github.artemget.prbot.webhook;
+package io.github.artemget.prbot.config;
 
-import io.github.artemget.prbot.bot.BotFk;
-import java.util.ArrayList;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
-import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.takes.rq.RqFake;
-import org.takes.rq.RqWithBody;
-import org.telegram.telegrambots.meta.api.objects.User;
 
 /**
- * Test case {@link TkHookGitlab}.
+ * Test cases for {@link ESafe}.
  *
  * @since 0.0.1
  */
-class TkHookGitlabTest {
+class ESafeTest {
 
-    @Disabled
-    void sendsUpdateAtValidBody() {
-        final BotFk bot = new BotFk();
-        new TkHookGitlab(bot).act(new RqWithBody(new RqFake(), "body"));
-        MatcherAssert.assertThat(
-            "Update not sent at valid body",
-            !bot.received().isEmpty()
+    @Test
+    void throwsWhenScalarThrows() {
+        Assertions.assertThrows(
+            EntryException.class,
+            () -> new ESafe<>(() -> {throw new EntryException("error");}).value(),
+            "Safe entry did not rethrow scalar exception"
         );
     }
 
-    @Disabled
-    void sendsUpdateFromTechUser() {
-        final BotFk bot = new BotFk();
-        new TkHookGitlab(bot).act(new RqFake());
-        final User expected = new User();
-        expected.setId(0L);
-        expected.setUserName("Technical account");
+    @Test
+    void throwsWhenNull() {
+        Assertions.assertThrows(
+            EntryException.class,
+            () -> new ESafe<>(() -> null).value(),
+            "Safe entry did not throw at null value"
+        );
+    }
+
+    @Test
+    void returnsScalarValue() throws EntryException {
         MatcherAssert.assertThat(
-            "Update not sent at valid body",
-            new ArrayList<>(bot.received())
-                .get(0)
-                .getMessage()
-                .getFrom(),
-            Matchers.equalTo(expected)
+            "Safe entry did not return suggested value",
+            new ESafe<>(() -> "value").value(),
+            Matchers.equalTo("value")
         );
     }
 }

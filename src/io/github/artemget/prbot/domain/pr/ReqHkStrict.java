@@ -22,28 +22,37 @@
  * SOFTWARE.
  */
 
-package io.github.artemget.prbot.config;
-
-import java.io.Serial;
+package io.github.artemget.prbot.domain.pr;
 
 /**
- * Throws when entry is empty.
+ * Strict webhook request.
  *
  * @since 0.0.1
  */
-public class EntryException extends Exception {
-    @Serial
-    private static final long serialVersionUID = 4172661814037122451L;
-
-    public EntryException(final Throwable cause) {
-        super(cause);
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
+public final class ReqHkStrict implements RequestWebhook {
+    @Override
+    public String token() throws EmptyArgumentException {
+        throw new UnsupportedOperationException("unimplemented");
     }
 
-    public EntryException(final String message) {
-        super(message);
+    @Override
+    public String action() throws EmptyArgumentException {
+        throw new UnsupportedOperationException("unimplemented");
     }
 
-    public EntryException(final String message, final Throwable cause) {
-        super(message, cause);
+    @Override
+    public String platform() throws EmptyArgumentException {
+        throw new UnsupportedOperationException("unimplemented");
+    }
+
+    @Override
+    public Project project() throws EmptyArgumentException {
+        throw new UnsupportedOperationException("unimplemented");
+    }
+
+    @Override
+    public PullRequest pullRequest() {
+        throw new UnsupportedOperationException("unimplemented");
     }
 }

@@ -22,28 +22,8 @@
  * SOFTWARE.
  */
 
-package io.github.artemget.prbot.config;
-
-import java.io.Serial;
-
 /**
- * Throws when entry is empty.
- *
- * @since 0.0.1
+ * Test cases for {@link io.github.artemget.prbot.config.Entry}
+ * and it's implementations.
  */
-public class EntryException extends Exception {
-    @Serial
-    private static final long serialVersionUID = 4172661814037122451L;
-
-    public EntryException(final Throwable cause) {
-        super(cause);
-    }
-
-    public EntryException(final String message) {
-        super(message);
-    }
-
-    public EntryException(final String message, final Throwable cause) {
-        super(message, cause);
-    }
-}
+package io.github.artemget.prbot.config;

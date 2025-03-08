@@ -22,28 +22,27 @@
  * SOFTWARE.
  */
 
-package io.github.artemget.prbot.config;
-
-import java.io.Serial;
+package io.github.artemget.prbot.domain.pr;
 
 /**
- * Throws when entry is empty.
+ * User's account at any information system.
  *
  * @since 0.0.1
  */
-public class EntryException extends Exception {
-    @Serial
-    private static final long serialVersionUID = 4172661814037122451L;
+public interface Account {
+    /**
+     * Returns account id.
+     *
+     * @return Identity
+     * @throws EmptyArgumentException If id not exists
+     */
+    String identity() throws EmptyArgumentException;
 
-    public EntryException(final Throwable cause) {
-        super(cause);
-    }
-
-    public EntryException(final String message) {
-        super(message);
-    }
-
-    public EntryException(final String message, final Throwable cause) {
-        super(message, cause);
-    }
+    /**
+     * Return account name.
+     *
+     * @return Account name
+     * @throws EmptyArgumentException If account name not exists
+     */
+    String username() throws EmptyArgumentException;
 }

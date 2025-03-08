@@ -24,26 +24,52 @@
 
 package io.github.artemget.prbot.config;
 
-import java.io.Serial;
+import org.cactoos.Scalar;
 
 /**
- * Throws when entry is empty.
+ * Null safe entry. Throws if wrapped
+ * scalar return null.
  *
+ * @param <T> Type
  * @since 0.0.1
  */
-public class EntryException extends Exception {
-    @Serial
-    private static final long serialVersionUID = 4172661814037122451L;
+public final class ESafe<T> implements Entry<T> {
+    /**
+     * Scalar returning T.
+     */
+    private final Scalar<T> origin;
 
-    public EntryException(final Throwable cause) {
-        super(cause);
+    /**
+     * Ctor.
+     *
+     * @param origin Value
+     */
+    public ESafe(final T origin) {
+        this(() -> origin);
     }
 
-    public EntryException(final String message) {
-        super(message);
+    /**
+     * Main ctor.
+     *
+     * @param origin Scalar
+     */
+    public ESafe(final Scalar<T> origin) {
+        this.origin = origin;
     }
 
-    public EntryException(final String message, final Throwable cause) {
-        super(message, cause);
+    //@checkstyle IllegalCatchCheck (8 lines)
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
+    @Override
+    public T value() throws EntryException {
+        final T value;
+        try {
+            value = this.origin.value();
+        } catch (final Exception exception) {
+            throw new EntryException(exception);
+        }
+        if (value == null) {
+            throw new EntryException("Empty entry");
+        }
+        return value;
     }
 }
