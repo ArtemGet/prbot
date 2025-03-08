@@ -29,7 +29,6 @@ import java.util.ArrayList;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
 import org.takes.rq.RqFake;
 import org.takes.rq.RqWithBody;
 import org.telegram.telegrambots.meta.api.objects.User;
