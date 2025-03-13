@@ -24,8 +24,8 @@
 
 package io.github.artemget.prbot.config;
 
-import jakarta.json.JsonArray;
-import jakarta.json.JsonObject;
+import javax.json.JsonArray;
+import javax.json.JsonObject;
 import org.cactoos.Scalar;
 
 /**
