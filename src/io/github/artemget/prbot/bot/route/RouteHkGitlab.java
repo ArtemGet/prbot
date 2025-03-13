@@ -29,9 +29,7 @@ import io.github.artemget.prbot.bot.command.CmdPrClose;
 import io.github.artemget.prbot.bot.command.CmdPrMerge;
 import io.github.artemget.prbot.bot.command.CmdPrOpen;
 import io.github.artemget.prbot.bot.command.CmdPrReject;
-import io.github.artemget.prbot.bot.match.JsonHas;
 import io.github.artemget.prbot.bot.match.MatchJsonVal;
-import io.github.artemget.prbot.bot.match.StringIsJson;
 import io.github.artemget.prbot.config.EProp;
 import io.github.artemget.prbot.config.Entry;
 import io.github.artemget.prbot.config.EntryException;
@@ -41,6 +39,8 @@ import io.github.artemget.teleroute.route.RouteDfs;
 import io.github.artemget.teleroute.route.RouteFork;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.bots.AbsSender;
+import wtf.g4s8.hamcrest.json.JsonHas;
+import wtf.g4s8.hamcrest.json.StringIsJson;
 
 /**
  * Routes for gitlab merge request webhook.

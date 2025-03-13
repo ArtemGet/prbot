@@ -28,6 +28,8 @@ import io.github.artemget.teleroute.update.Wrap;
 import java.util.function.Predicate;
 import org.hamcrest.TypeSafeMatcher;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import wtf.g4s8.hamcrest.json.JsonHas;
+import wtf.g4s8.hamcrest.json.StringIsJson;
 
 /**
  * Wraps {@link MatchJson}.

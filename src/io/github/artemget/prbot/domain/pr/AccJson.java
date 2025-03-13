@@ -26,7 +26,7 @@ package io.github.artemget.prbot.domain.pr;
 
 import io.github.artemget.prbot.config.EJsonStr;
 import io.github.artemget.prbot.config.EntryException;
-import jakarta.json.JsonObject;
+import javax.json.JsonObject;
 
 /**
  * User's account from json source.
