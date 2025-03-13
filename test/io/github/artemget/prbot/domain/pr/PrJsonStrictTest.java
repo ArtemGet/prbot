@@ -31,6 +31,8 @@ import javax.json.Json;
 import net.joshka.junit.json.params.JsonFileSource;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 
 /**
@@ -39,6 +41,15 @@ import org.junit.jupiter.params.ParameterizedTest;
  * @since 0.0.1
  */
 class PrJsonStrictTest {
+
+    @Test
+    void throwsAtWrongJsonFormatAtCreation() {
+        Assertions.assertThrows(
+            EntryException.class,
+            () -> new PrJsonStrict("not json"),
+            "Not thrown at wrong json format"
+        );
+    }
 
     @ParameterizedTest
     @JsonFileSource(resources = "/PrStrict.json")
