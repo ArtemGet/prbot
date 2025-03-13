@@ -30,6 +30,7 @@ import io.github.artemget.prbot.config.EJsonStr;
 import io.github.artemget.prbot.config.EntryException;
 import java.io.StringReader;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 import javax.json.Json;
 import javax.json.JsonArray;
@@ -111,7 +112,7 @@ public final class PrJsonStrict implements PullRequest {
     public Status status() throws EmptyArgumentException {
         final String status;
         try {
-            status = new EJsonStr(this.json, "link").value();
+            status = new EJsonStr(this.json, "status").value();
         } catch (final EntryException exception) {
             throw new EmptyArgumentException(
                 String.format(
@@ -122,7 +123,7 @@ public final class PrJsonStrict implements PullRequest {
             );
         }
         try {
-            return PullRequest.Status.valueOf(status);
+            return PullRequest.Status.valueOf(status.toUpperCase(Locale.getDefault()));
         } catch (final IllegalArgumentException exception) {
             throw new EmptyArgumentException(
                 String.format(
@@ -152,7 +153,7 @@ public final class PrJsonStrict implements PullRequest {
 
     @Override
     public List<Account> assigners() throws EmptyArgumentException {
-        return this.accounts("assigners");
+        return this.accounts("assignees");
     }
 
     @Override

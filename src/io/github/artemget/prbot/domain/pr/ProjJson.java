@@ -30,11 +30,6 @@ import javax.json.JsonObject;
  * Git project from json source.
  *
  * @since 0.0.1
- * @todo #20:45 {@link io.github.artemget.prbot.domain.pr.ProjJson}
- *  and {@link io.github.artemget.prbot.domain.pr.PrJsonStrict}
- *  is not covered by tests. Lets cover it's methods. I suggest using
- *  <a href="https://github.com/joshka/junit-json-params">joshka/junit-json-params</a>
- *  with it's @JsonSource annotation, test sources is placed under resources dir.
  */
 public final class ProjJson implements Project {
     /**
