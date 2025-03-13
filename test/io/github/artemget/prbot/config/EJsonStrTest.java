@@ -24,7 +24,7 @@
 
 package io.github.artemget.prbot.config;
 
-import jakarta.json.Json;
+import javax.json.Json;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
