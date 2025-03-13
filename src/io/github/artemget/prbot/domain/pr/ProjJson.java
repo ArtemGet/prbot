@@ -24,7 +24,7 @@
 
 package io.github.artemget.prbot.domain.pr;
 
-import jakarta.json.JsonObject;
+import javax.json.JsonObject;
 
 /**
  * Git project from json source.
