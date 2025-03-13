@@ -152,7 +152,7 @@ public final class PrJsonStrict implements PullRequest {
 
     @Override
     public List<Account> assigners() throws EmptyArgumentException {
-        return this.accounts("assigners");
+        return this.accounts("assignees");
     }
 
     @Override
