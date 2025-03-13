@@ -26,10 +26,10 @@ package io.github.artemget.prbot.domain.pr;
 
 import io.github.artemget.prbot.config.EJsonObj;
 import io.github.artemget.prbot.config.EntryException;
-import jakarta.json.Json;
-import jakarta.json.JsonObject;
-import jakarta.json.JsonReader;
 import java.io.StringReader;
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
 
 /**
  * Gitlab webhook request.
