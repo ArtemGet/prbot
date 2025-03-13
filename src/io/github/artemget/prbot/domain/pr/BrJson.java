@@ -26,6 +26,7 @@ package io.github.artemget.prbot.domain.pr;
 
 import io.github.artemget.prbot.config.EJsonStr;
 import io.github.artemget.prbot.config.EntryException;
+import java.util.Objects;
 import javax.json.JsonObject;
 
 /**
@@ -82,5 +83,25 @@ public final class BrJson implements Branch {
                 exception
             );
         }
+    }
+
+    //@checkstyle NeedBracesCheck (20 lines)
+    //@checkstyle HiddenFieldCheck (10 lines)
+    @SuppressWarnings({
+        "PMD.ControlStatementBraces",
+        "PMD.OnlyOneReturn",
+        "AnnotationUseStyleCheck"
+    })
+    @Override
+    public boolean equals(final Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        final BrJson json = (BrJson) object;
+        return Objects.equals(this.json, json.json);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.json);
     }
 }
