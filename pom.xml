@@ -24,9 +24,9 @@
     </properties>
     <dependencies>
         <dependency>
-            <groupId>wtf.g4s8</groupId>
+            <groupId>com.github.g4s8</groupId>
             <artifactId>matchers-json</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>4f82cfafa1</version>
         </dependency>
         <dependency>
             <groupId>com.github.ArtemGet</groupId>
