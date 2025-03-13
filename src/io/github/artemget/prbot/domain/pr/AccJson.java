@@ -85,8 +85,8 @@ public final class AccJson implements Account {
         }
     }
 
-    //@todo #20:45min Intellij generates equals and hashcode
-    // not the elegant way. Lets add custom template for equals.
+    // @todo #20:45min Intellij generates equals and hashcode
+    //  not the elegant way. Lets add custom template for equals.
     //@checkstyle NeedBracesCheck (20 lines)
     //@checkstyle HiddenFieldCheck (10 lines)
     @SuppressWarnings({
