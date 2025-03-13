@@ -82,9 +82,14 @@
     <build>
         <sourceDirectory>src</sourceDirectory>
         <testSourceDirectory>test</testSourceDirectory>
+        <testResources>
+            <testResource>
+                <directory>resources</directory>
+            </testResource>
+        </testResources>
         <resources>
             <resource>
-                <directory>../resources</directory>
+                <directory>resources</directory>
             </resource>
         </resources>
         <plugins>
