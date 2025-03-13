@@ -111,7 +111,7 @@ public final class PrJsonStrict implements PullRequest {
     public Status status() throws EmptyArgumentException {
         final String status;
         try {
-            status = new EJsonStr(this.json, "link").value();
+            status = new EJsonStr(this.json, "status").value();
         } catch (final EntryException exception) {
             throw new EmptyArgumentException(
                 String.format(
@@ -122,7 +122,7 @@ public final class PrJsonStrict implements PullRequest {
             );
         }
         try {
-            return PullRequest.Status.valueOf(status);
+            return PullRequest.Status.valueOf(status.toUpperCase());
         } catch (final IllegalArgumentException exception) {
             throw new EmptyArgumentException(
                 String.format(
